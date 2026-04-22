@@ -1,0 +1,310 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  PASTOR
+  FINANCE
+  MINISTRY_LEADER
+  VOLUNTEER
+  VIEWER
+}
+
+enum MembershipStatus {
+  ACTIVE
+  DORMANT
+  IRREGULAR
+  ARCHIVED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNKNOWN
+}
+
+enum CareType {
+  PRAYER
+  PASTORAL_CARE
+  BENEVOLENCE
+  HOSPITAL_VISIT
+  COUNSELING
+}
+
+enum CarePriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum CareStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  VISITOR
+  EXCUSED
+}
+
+enum AttendanceSessionCategory {
+  SUNDAY_SERVICE
+  MIDWEEK_PRAYER
+  BIBLE_STUDY
+  OUTREACH
+  YOUTH
+  SPECIAL_EVENT
+  OTHER
+}
+
+model User {
+  id           String   @id @default(cuid())
+  fullName     String
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(ADMIN)
+  isActive     Boolean  @default(true)
+  passwordResetTokenHash String?
+  passwordResetExpiresAt DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  auditLogs AuditLog[]
+}
+
+model Household {
+  id                  String   @id @default(cuid())
+  externalHouseholdId String   @unique
+  householdName       String?
+  addressFull         String?
+  postcode            String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  members Member[]
+
+  @@index([householdName])
+  @@index([postcode])
+}
+
+model Member {
+  id                String           @id @default(cuid())
+  externalMemberId  String?          @unique
+  title             String?
+  firstName         String?
+  middleName        String?
+  lastName          String?
+  fullName          String
+  dateOfBirth       DateTime?
+  gender            Gender           @default(UNKNOWN)
+  contactPreference String?
+  phoneNumber       String?
+  email             String?
+  membershipStatus  MembershipStatus @default(ACTIVE)
+  isLeader          Boolean          @default(false)
+  fellowshipType    String?
+  fellowshipName    String?
+  leadershipRole    String?
+  basontaCategory   String?
+  joinDate          DateTime?
+  addressFull       String?
+  postcode          String?
+  profileImageUrl   String?
+  profileImageName  String?
+  needsReview       Boolean          @default(false)
+  dataQualityNotes  String?
+  notes             String?
+  visitorFirstServiceDate DateTime?
+  visitorInvitedBy      String?
+  visitorHowHeard       String?
+  visitorFollowUpStatus String?
+  visitorAssignedTo     String?
+  visitorLastContactAt  DateTime?
+  visitorNextStep       String?
+  visitorFollowUpNotes  String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  householdId String?
+  household   Household? @relation(fields: [householdId], references: [id])
+
+  attendanceRecords    AttendanceRecord[]
+  givingRecords        GivingRecord[]
+  volunteerAssignments VolunteerAssignment[]
+  careCases            CareCase[]
+  memberNotes          MemberNote[]
+  memberDocuments      MemberDocument[]
+
+  @@index([fullName])
+  @@index([membershipStatus])
+  @@index([householdId])
+}
+
+model AttendanceSession {
+  id          String                    @id @default(cuid())
+  title       String
+  category    AttendanceSessionCategory @default(OTHER)
+  customCategory String?
+  serviceDate DateTime
+  notes       String?
+  createdBy   String?
+  eventId     String?
+  createdAt   DateTime                  @default(now())
+  updatedAt   DateTime                  @updatedAt
+
+  event   Event?              @relation(fields: [eventId], references: [id])
+  records AttendanceRecord[]
+
+  @@index([serviceDate])
+  @@index([eventId])
+}
+
+model AttendanceRecord {
+  id          String           @id @default(cuid())
+  sessionId   String
+  memberId    String
+  attendedOn  DateTime
+  status      AttendanceStatus @default(PRESENT)
+  checkInTime DateTime?
+  notes       String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  session AttendanceSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  member  Member            @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, memberId])
+  @@index([memberId])
+  @@index([attendedOn])
+  @@index([status])
+}
+
+model GivingRecord {
+  id          String   @id @default(cuid())
+  memberId    String?
+  donorName   String?
+  fund        String
+  amount      Decimal  @db.Decimal(12, 2)
+  method      String?
+  referenceNo String?
+  donatedAt   DateTime
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  member Member? @relation(fields: [memberId], references: [id])
+
+  @@index([memberId])
+  @@index([donatedAt])
+}
+
+model Event {
+  id               String   @id @default(cuid())
+  title            String
+  description      String?
+  ministry         String?
+  startsAt         DateTime
+  endsAt           DateTime?
+  location         String?
+  volunteersNeeded Int?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  attendanceSessions   AttendanceSession[]
+  volunteerAssignments VolunteerAssignment[]
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorUserId String?
+  action      String
+  entityType  String
+  entityId    String?
+  summary     String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  actorUser User? @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([actorUserId])
+  @@index([entityType])
+  @@index([createdAt])
+}
+
+model VolunteerAssignment {
+  id        String   @id @default(cuid())
+  eventId   String
+  memberId  String
+  team      String?
+  roleName  String?
+  status    String?
+  createdAt DateTime @default(now())
+
+  event  Event  @relation(fields: [eventId], references: [id])
+  member Member @relation(fields: [memberId], references: [id])
+
+  @@index([eventId])
+  @@index([memberId])
+}
+
+model CareCase {
+  id            String       @id @default(cuid())
+  memberId      String?
+  requesterName String?
+  type          CareType
+  priority      CarePriority @default(MEDIUM)
+  status        CareStatus   @default(OPEN)
+  details       String
+  ownerName     String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  member Member? @relation(fields: [memberId], references: [id])
+
+  @@index([memberId])
+  @@index([status])
+}
+
+model MemberNote {
+  id        String   @id @default(cuid())
+  memberId  String
+  title     String?
+  body      String
+  createdBy String?
+  createdAt DateTime @default(now())
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId])
+}
+
+model MemberDocument {
+  id             String   @id @default(cuid())
+  memberId       String
+  fileName       String
+  storedFileName String
+  fileUrl        String
+  fileType       String?
+  fileSize       Int?
+  category       String?
+  note           String?
+  uploadedBy     String?
+  createdAt      DateTime @default(now())
+
+  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId])
+  @@index([category])
+}

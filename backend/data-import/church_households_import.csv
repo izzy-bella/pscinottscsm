@@ -1,0 +1,68 @@
+household_id,household_name,address_full,postcode,member_count,member_external_ids,member_names
+HH001,Buah Household,4 DENTON DRIVE NG2 7FS,NG2 7FS,3,"M001, M002, M134","Dr. Mark Buah, Yvonne Buah, Evangeline Buah"
+HH002,Jere Household,7 FAULCONBRIDGE CLOSE NG6 8DW,NG6 8DW,2,"M003, M004","Kondwani Jere, Jean Jere"
+HH003,Asinyaka Household,13 LOBELIA CLOSE NG3 4PT,NG3 4PT,7,"M005, M006, M007, M008, M009, M010, 410891dd","Dr. Michael Asinyaka, Beatrice Tindana Abantoliya, Immanuella Asinyaka, Teni Asinyaka, Baby Asinyaka, Elizabeth Asinyaka, Peter Rock"
+HH004,Anyima-Ackah Household,20 PIPPIN CLOSE NG3 3DH,NG3 3DH,5,"M011, M012, M013, M014, M015","Akpandah Anyima-Ackah, Josephine Anyima-Ackah, Netanya Anyima-Ackah, Stephen Anyima-Ackah, Enoch Anyima-Ackah"
+HH005,Laryea Household,46 TOPLIFF ROAD NG9 5AQ,NG9 5AQ,5,"M016, M017, M018, M019, M020","Sydney Laryea, Venny Laryea, Alexander Laryea, Ethan Laryea, Phoebe Laryea"
+HH006,Aliu Household,29 BENNETT ROAD NG3 6BP,NG3 6BP,4,"M021, M022, M023, M024","Alfred Aliu, Stacy Purcell, Thea Aliu, Theon Aliu"
+HH007,Agana Household,23 WALLETT AVENUE NG9 2QR,NG9 2QR,2,"M025, M026","Beverly Agana, Brenda Agana"
+HH008,Amoateng Household,100 CENTRAL AVENUE NG9 2QS,NG9 2QS,3,"M027, M028, M029","Barbara Amoateng, Elisha Ennin, Nathan Amoateng"
+HH009,Akuoko Household,3 STREET CHRISTOPHER DRIVE WS10 0GE,WS10 0GE,5,"M030, M031, M032, M033, M034","Anthony Akuoko, Ifey Akuoko, Zachary Akuoko, Zane Akuoko, Zoe Akuoko"
+HH010,Metuge Household,15 WELWYN ROAD NG8 2DD,NG8 2DD,5,"M035, M036, M037, M038, M039","Ps. Ivo Metuge, Rita Ndip, Janice Metuge, Ivor Junior Metuge, Jayden Metuge"
+HH011,Boateng Household,6 GLARAMARA CLOSE NG2 1LD,NG2 1LD,4,"M040, M041, M042, M043","Juliana Yohou, Robert Boateng, Elijah Boateng, Tiffany Boateng"
+HH012,Afenyo Household,8 PENRHYN CLOSE NG3 1NG,NG3 1NG,5,"M044, M045, M046, M047, M135","Emelia Kpakpa, Godwin Aklika, Etornam Korsi Afenyo, Selase Kwaku Afenyo, Eyram Afenyo"
+HH013,Amaning Household,9 CATOR LANE NG9 4AX,NG9 4AX,2,"M048, M049","Rev. Clement Amaning, LR. Marie Amaning"
+HH014,Mzondo Household,10 MALBON CLOSE NG3 3BS,NG3 3BS,4,"M050, M051, M052, M149","Sean-Martin Mzondo, Adrian Maulge, Tenatswa Mzondo, Lisa-Marie Brobbey"
+HH015,Kwakye Household,FLAT 2 WATERMARK HOUSE NG5 1RL,NG5 1RL,2,"M053, M054","Nathaniel Osei Kwakye, Gillian Anima Asare"
+HH016,Ahenkorah Household,10 SOUTHWOLD DRIVE NG8 1PA,NG8 1PA,2,"M055, M056","Carly Ahenkorah, Maryjo Codjoe"
+HH017,Bello Household,5 QUERNEBY ROAD NG3 5JA,NG3 5JA,5,"M057, M058, M059, M060, M061","Osahon Stephen Bello, Esther Bello, Aaron Bello, Albert Bello, Alexi Bello"
+HH018,Attah-Hayford Household,6 EDMONSTONE CRESCENT NG5 5UW,NG5 5UW,5,"M062, M063, M064, M065, M066","Rostella Appiah-Kubi, Edward Attah-Hayford, Raphael Attah-Hayford, Amy Attah-Hayford, Ruby Attah- Hayford"
+HH019,Darkwa Household,1 FERNDENE DRIVE NG10 3RR,NG10 3RR,2,"M067, M068","Sandra Darkwa, Andrew Darkwa"
+HH020,Cooke Household,4 OAKMEAD AVENUE NG8 3AG,NG8 3AG,3,"M069, M070, M071","Giftee Cooke, Irene Cooke, Annie Cooke"
+HH021,Amamoo Household,37 BIDFORD ROAD NG8 6FP,NG8 6FP,2,"M072, M073","Elfrida Amamoo, Charlene Amamoo"
+HH022,Mwangi Household,34 ARGYLE COURT NG7 3LW,NG7 3LW,3,"M074, M075, M076","Evans Mwangi, Esther Mwangi, Angel Mwangi"
+HH023,Karanja Household,55 QUERNEBY ROAD NG3 5JA,NG3 5JA,1,M077,Gabriel Karanja
+HH024,Mbateh Household,115 POTTERS HOLLOW NG6 8PB,NG6 8PB,2,"M078, M079","Thecla Mbateh, Nghombanu Cyprian Ayoniseh"
+HH025,Ayoniseh Household,POTTERS HOLLOW NG6 8PB,NG6 8PB,2,"M080, M081","Zaira Ayoniseh, Zion Ayoniseh"
+HH026,Kpeglo Household,23 BECKELY ROAD NG8 6GY,NG8 6GY,2,"M082, M083","Esther Tetteh Kpeglo, Elinam Kwarteng"
+HH027,Badu Household,15 BRADDOCK CLOSE NG7 2FN,NG7 2FN,5,"M084, M085, M086, M087, M088","Abladey Badu, Jennifer Badu, Eleana Badu, Eleora Badu, Elkan Badu"
+HH028,Osiogbovba Household,22 TONELIER ROAD NG7 2RW,NG7 2RW,5,"M092, M093, M094, M095, M096","Racheal Osiogbovba, Ovine Osiogbovba, Rachel's Mum, Daisy Boma Osiogboyba, Delvin Wede Osiogboyba"
+HH029,Yeboah Household,562 WOODBOROUGH ROAD (FLAT 1) NG3 5FF,NG3 5FF,2,"M097, M098","Abena Yeboah, Ethan Odwira Ohene Yeboah Kotey"
+HH030,Wireko Household,2 KILLERTON PARK ROAD NG2 75B,,1,M099,Evelyn Wireko
+HH031,Boateng-Nti Household,17 BECK STREET NG4 1RU,NG4 1RU,4,"M100, M101, M102, M103","James Boateng-Nti, Vera Damptey Bediako, Jaden Damptey Boateng-Nti, Mercedes Damptey Boateng-Nti"
+HH032,Aha Household,6 MUSTON CLOSE NG3 3ES,NG3 3ES,5,"M104, M105, M106, M107, M108","Dr. Bismark Aha, Josephina Aha, Jadon Aha, Nhyira Aha, Baby Aha"
+HH033,Baffour-Awuah Household,41 MOUNTFIELD DRIVE NG5 5LH,NG5 5LH,3,"M109, M110, M111","Nana Serwaa Baffour-Awuah, Duffie Baffour-Awuah, Maame Serwaa Baffour-Awuah"
+HH034,Mawushi Household,FLAT 21 BURROW COURT SNEINTON NG3 2AE,NG3 2AE,4,"M112, M113, M114, M115","Innocente Mawushi, Alexander Nyamekye Ameyaw, Elnathan Nyametease Kumah, Zerubbabel Kwaku Mireku"
+HH035,Ross Household,143 LOWER PARLIAMENT STREET NG1 1EE,NG1 1EE,2,"M116, M117","Raquel Ross, Edward Tetteh"
+HH036,Ghansah Household,3 WEAVE CLOSE NG6 0FH,NG6 0FH,1,M118,Albert Ghansah
+HH037,Celestin Household,10 CINDERHILL WALK NG6 8RW,NG6 8RW,1,M119,Ana Celestin
+HH038,. Household,2 CAUNTON AVENUE NG3 5HH,NG3 5HH,2,"M120, M147","Anisa ., Kristen Obrien"
+HH039,Adutwumwaa Household,12 BROOK COURT PLAYER STREET NG7 5PP,NG7 5PP,1,M121,Bernice Adutwumwaa
+HH040,Aggrey Household,37 EWELL ROAD NG8 2DE,NG8 2DE,1,M122,Caroline Aggrey
+HH041,Martey Household,FLAT 3 NG3 5QQ,NG3 5QQ,1,M123,Charles Martey
+HH042,Ogunremi Household,9 DRUMMOND ROAD DE7 5HA,DE7 5HA,1,M124,Daniel Ogunremi
+HH043,Smith Household,12 DEEPDEENE CLOSE NG8 6BL,NG8 6BL,1,M125,Devenay Smith
+HH044,Bennetts Household,84 WOODFIELD ROAD NG8 6HZ,NG8 6HZ,1,M126,Donna Bennetts
+HH045,Aha Household,24 ABBOTSFORD DRIVE NG3 4PN,NG3 4PN,1,M127,Dora Aha
+HH046,Lema Household,16 ROMAN DRIVE NG6 0NX,NG6 0NX,1,M128,Dorea Lema
+HH047,Ndwuchuku Household,56 LAVENDER WALK NG3 4PS,NG3 4PS,1,M129,Ebere Ndwuchuku
+HH048,Fordjour Household,46 KENTRICK ROAD NG3 6HN,NG3 6HN,1,M130,Elisha Fordjour
+HH049,Chikoleka Household,92A BASFORD ROAD NG6 0JL,NG6 0JL,1,M131,Elsie Nandi Chikoleka
+HH050,Anyan Household,20 RAWNSLEY DRIVE NG4 2SX,NG4 2SX,1,M132,Esther Tawiah Anyan
+HH051,Amoasi Household,100 DENNIS AVENUE NG9 2RE,NG9 2RE,1,M133,Eugene Amoasi
+HH052,Yankah Household,96 ELTHAM DRIVE NG8 6BQ,NG8 6BQ,1,M137,Genevieve Yankah
+HH053,Lukaku Household,104 RAGDALE ROAD NG6 8GQ,NG6 8GQ,1,M138,Glaudi Lukaku
+HH054,Yeboah Household,150 PORTLAND ROAD NG15 7SA,NG15 7SA,1,M139,Isabella Yeboah
+HH055,Frimpong Household,69 ALISON DRIVE,,1,M140,Jennifer Frimpong
+HH056,Frimpong Household,69 ARLESTON DRIVE NG8 2FZ,NG8 2FZ,3,"M141, M142, M143","Andrew Frimpong, Joshua Frimpong, Naomi Frimpong"
+HH057,Nelson Household,67 HALLAM ROAD NG3 6HR,NG3 6HR,1,M144,Jerome Nelson
+HH058,Aderibigbe-Simeon Household,160B FOSTER STREET NG7 3DD,NG7 3DD,1,M145,John Aderibigbe-Simeon
+HH059,Kirkland Household,29 CLAYGATE NG3 6JX,NG3 6JX,2,"M146, M150","Kemari Kirkland, Oriana Obrien"
+HH060,Kwaky Household,2 WATERMARK CLOSE NG5 1RL,NG5 1RL,1,M148,Kyrie Kwaky
+HH061,Appiah Household,27C TOTON LANE NG9 7HB,NG9 7HB,1,M151,Princilla Appiah
+HH062,Yeboah Household,92 BIRSTALL MEADOW LANE LE4 3NF,LE4 3NF,1,M152,Rev. Nana Yaw Yeboah
+HH063,Chiboka Household,11 WIVERTON ROAD NG7 6NQ,NG7 6NQ,1,M153,Samuel Chiboka
+HH064,David Household,65 HOEFIELD CRESCENT NG6 8AZ,NG6 8AZ,1,M154,Sophy David
+HH065,McIndoe Household,25 CEDNEY AVENUE NG3 3DB,NG3 3DB,1,M155,Soreya McIndoe
+HH066,Dwamena Household,14 EMBLEY ROAD NG5 1RE,NG5 1RE,1,M156,Stephen Dwamena
+HH067,Mwangi Household,32 ARGYLE STREET RADFORD NG7 3LW,NG7 3LW,1,M157,Trizah Mwangi

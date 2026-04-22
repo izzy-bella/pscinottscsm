@@ -1,0 +1,159 @@
+external_member_id,full_name,title,first_name,middle_name,last_name,date_of_birth,gender,contact_preference,phone_number,email,membership_status,join_date,household_id,address_full,postcode,needs_review,data_quality_notes
+M001,Dr. Mark Buah,Dr,Mark,,Buah,,Male,,,,Active,,HH001,4 DENTON DRIVE NG2 7FS,NG2 7FS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M002,Yvonne Buah,,Yvonne,,Buah,,Female,,,,Active,,HH001,4 DENTON DRIVE NG2 7FS,NG2 7FS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M003,Kondwani Jere,,Kondwani,,Jere,,Male,,,,Active,,HH002,7 FAULCONBRIDGE CLOSE NG6 8DW,NG6 8DW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M004,Jean Jere,,Jean,,Jere,,Female,,,,Active,,HH002,7 FAULCONBRIDGE CLOSE NG6 8DW,NG6 8DW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M005,Dr. Michael Asinyaka,Dr,Michael,,Asinyaka,,Male,,,,Active,,HH003,13 LOBELIA CLOSE NG3 4PT,NG3 4PT,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M006,Beatrice Tindana Abantoliya,,Beatrice,Tindana,Abantoliya,,Female,,,,Active,,HH003,13 LOBELIA CLOSE NG3 4PT,NG3 4PT,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M007,Immanuella Asinyaka,,Immanuella,,Asinyaka,,Female,,,,Active,,HH003,13 LOBELIA CLOSE NG3 4PT,NG3 4PT,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M008,Teni Asinyaka,,Teni,,Asinyaka,,Female,,,,Active,,HH003,13 LOBELIA CLOSE NG3 4PT,NG3 4PT,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M009,Baby Asinyaka,,Baby,,Asinyaka,,Female,,,,Active,,HH003,13 LOBELIA CLOSE NG3 4PT,NG3 4PT,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M010,Elizabeth Asinyaka,,Elizabeth,,Asinyaka,,Female,,,,Active,,HH003,13 LOBELIA CLOSE NG3 4PT,NG3 4PT,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M011,Akpandah Anyima-Ackah,,Akpandah,,Anyima-Ackah,,Male,,,,Active,,HH004,20 PIPPIN CLOSE NG3 3DH,NG3 3DH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M012,Josephine Anyima-Ackah,,Josephine,,Anyima-Ackah,,Female,,,,Active,,HH004,20 PIPPIN CLOSE NG3 3DH,NG3 3DH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M013,Netanya Anyima-Ackah,,Netanya,,Anyima-Ackah,,Female,,,,Active,,HH004,20 PIPPIN CLOSE NG3 3DH,NG3 3DH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M014,Stephen Anyima-Ackah,,Stephen,,Anyima-Ackah,,Male,,,,Active,,HH004,20 PIPPIN CLOSE NG3 3DH,NG3 3DH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M015,Enoch Anyima-Ackah,,Enoch,,Anyima-Ackah,,Male,,,,Active,,HH004,20 PIPPIN CLOSE NG3 3DH,NG3 3DH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M016,Sydney Laryea,,Sydney,,Laryea,,Male,,,,Active,,HH005,46 TOPLIFF ROAD NG9 5AQ,NG9 5AQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M017,Venny Laryea,,Venny,,Laryea,,Female,,,,Active,,HH005,46 TOPLIFF ROAD NG9 5AQ,NG9 5AQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M018,Alexander Laryea,,Alexander,,Laryea,,Male,,,,Active,,HH005,46 TOPLIFF ROAD NG9 5AQ,NG9 5AQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M019,Ethan Laryea,,Ethan,,Laryea,,Male,,,,Active,,HH005,46 TOPLIFF ROAD NG9 5AQ,NG9 5AQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M020,Phoebe Laryea,,Phoebe,,Laryea,,Female,,,,Active,,HH005,46 TOPLIFF ROAD NG9 5AQ,NG9 5AQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M021,Alfred Aliu,,Alfred,,Aliu,,Male,,,,Dormant,,HH006,29 BENNETT ROAD NG3 6BP,NG3 6BP,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M022,Stacy Purcell,,Stacy,,Purcell,,Female,,,,Active,,HH006,29 BENNETT ROAD NG3 6BP,NG3 6BP,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M023,Thea Aliu,,Thea,,Aliu,,Female,,,,Active,,HH006,29 BENNETT ROAD NG3 6BP,NG3 6BP,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M024,Theon Aliu,,Theon,,Aliu,,Male,,,,Active,,HH006,29 BENNETT ROAD NG3 6BP,NG3 6BP,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M025,Beverly Agana,,Beverly,,Agana,,Female,,,,Active,,HH007,23 WALLETT AVENUE NG9 2QR,NG9 2QR,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M026,Brenda Agana,,Brenda,,Agana,,Female,,,,Active,,HH007,23 WALLETT AVENUE NG9 2QR,NG9 2QR,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M027,Barbara Amoateng,,Barbara,,Amoateng,,Female,,,,Active,,HH008,100 CENTRAL AVENUE NG9 2QS,NG9 2QS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M028,Elisha Ennin,,Elisha,,Ennin,,Female,,,,Active,,HH008,100 CENTRAL AVENUE NG9 2QS,NG9 2QS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M029,Nathan Amoateng,,Nathan,,Amoateng,,Male,,,,Active,,HH008,100 CENTRAL AVENUE NG9 2QS,NG9 2QS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M030,Anthony Akuoko,,Anthony,,Akuoko,,Male,,,,Active,,HH009,3 STREET CHRISTOPHER DRIVE WS10 0GE,WS10 0GE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M031,Ifey Akuoko,,Ifey,,Akuoko,,Female,,,,Active,,HH009,3 STREET CHRISTOPHER DRIVE WS10 0GE,WS10 0GE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M032,Zachary Akuoko,,Zachary,,Akuoko,,Male,,,,Active,,HH009,3 STREET CHRISTOPHER DRIVE WS10 0GE,WS10 0GE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M033,Zane Akuoko,,Zane,,Akuoko,,Male,,,,Active,,HH009,3 STREET CHRISTOPHER DRIVE WS10 0GE,WS10 0GE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M034,Zoe Akuoko,,Zoe,,Akuoko,,Female,,,,Active,,HH009,3 STREET CHRISTOPHER DRIVE WS10 0GE,WS10 0GE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M035,Ps. Ivo Metuge,Ps,Ivo,,Metuge,,Male,,,,Active,,HH010,15 WELWYN ROAD NG8 2DD,NG8 2DD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M036,Rita Ndip,,Rita,,Ndip,,,,,,Active,,HH010,15 WELWYN ROAD NG8 2DD,NG8 2DD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M037,Janice Metuge,,Janice,,Metuge,,Female,,,,Active,,HH010,15 WELWYN ROAD NG8 2DD,NG8 2DD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M038,Ivor Junior Metuge,,Ivor,Junior,Metuge,,Male,,,,Active,,HH010,15 WELWYN ROAD NG8 2DD,NG8 2DD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M039,Jayden Metuge,,Jayden,,Metuge,,Male,,,,Active,,HH010,15 WELWYN ROAD NG8 2DD,NG8 2DD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M040,Juliana Yohou,,Juliana,,Yohou,,Female,,,,Active,,HH011,6 GLARAMARA CLOSE NG2 1LD,NG2 1LD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M041,Robert Boateng,,Robert,,Boateng,,Male,,,,Irregular,,HH011,6 GLARAMARA CLOSE NG2 1LD,NG2 1LD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M042,Elijah Boateng,,Elijah,,Boateng,,Male,,,,Active,,HH011,6 GLARAMARA CLOSE NG2 1LD,NG2 1LD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M043,Tiffany Boateng,,Tiffany,,Boateng,,Female,,,,Active,,HH011,6 GLARAMARA CLOSE NG2 1LD,NG2 1LD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M044,Emelia Kpakpa,,Emelia,,Kpakpa,,Female,,,,Active,,HH012,8 PENRHYN CLOSE NG3 1NG,NG3 1NG,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M045,Godwin Aklika,,Godwin,,Aklika,,Male,,,,Active,,HH012,8 PENRHYN CLOSE NG3 1NG,NG3 1NG,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M046,Etornam Korsi Afenyo,,Etornam,Korsi,Afenyo,,Male,,,,Active,,HH012,8 PENRHYN CLOSE NG3 1NG,NG3 1NG,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M047,Selase Kwaku Afenyo,,Selase,Kwaku,Afenyo,,Male,,,,Active,,HH012,8 PENRHYN CLOSE NG3 1NG,NG3 1NG,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M048,Rev. Clement Amaning,Rev,Clement,,Amaning,,,,,,Active,,HH013,9 CATOR LANE NG9 4AX,NG9 4AX,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M049,LR. Marie Amaning,,LR.,Marie,Amaning,,Female,,,,Active,,HH013,9 CATOR LANE NG9 4AX,NG9 4AX,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M050,Sean-Martin Mzondo,,Sean-Martin,,Mzondo,,Male,,,,Active,,HH014,10 MALBON CLOSE NG3 3BS,NG3 3BS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M051,Adrian Maulge,,Adrian,,Maulge,,Female,,,,Active,,HH014,10 MALBON CLOSE NG3 3BS,NG3 3BS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M052,Tenatswa Mzondo,,Tenatswa,,Mzondo,,Female,,,,Active,,HH014,10 MALBON CLOSE NG3 3BS,NG3 3BS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M053,Nathaniel Osei Kwakye,,Nathaniel,Osei,Kwakye,,Male,,,,Dormant,,HH015,FLAT 2 WATERMARK HOUSE NG5 1RL,NG5 1RL,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M054,Gillian Anima Asare,,Gillian,Anima,Asare,,Female,,,,Active,,HH015,FLAT 2 WATERMARK HOUSE NG5 1RL,NG5 1RL,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M055,Carly Ahenkorah,,Carly,,Ahenkorah,,Female,,,,Active,,HH016,10 SOUTHWOLD DRIVE NG8 1PA,NG8 1PA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M056,Maryjo Codjoe,,Maryjo,,Codjoe,,Female,,,,Active,,HH016,10 SOUTHWOLD DRIVE NG8 1PA,NG8 1PA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M057,Osahon Stephen Bello,,Osahon,Stephen,Bello,,Male,,,,Irregular,,HH017,5 QUERNEBY ROAD NG3 5JA,NG3 5JA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M058,Esther Bello,,Esther,,Bello,,Female,,,,Active,,HH017,5 QUERNEBY ROAD NG3 5JA,NG3 5JA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M059,Aaron Bello,,Aaron,,Bello,,Male,,,,Active,,HH017,5 QUERNEBY ROAD NG3 5JA,NG3 5JA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M060,Albert Bello,,Albert,,Bello,,Male,,,,Active,,HH017,5 QUERNEBY ROAD NG3 5JA,NG3 5JA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M061,Alexi Bello,,Alexi,,Bello,,Male,,,,Active,,HH017,5 QUERNEBY ROAD NG3 5JA,NG3 5JA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M062,Rostella Appiah-Kubi,,Rostella,,Appiah-Kubi,,Female,,,,Active,,HH018,6 EDMONSTONE CRESCENT NG5 5UW,NG5 5UW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M063,Edward Attah-Hayford,,Edward,,Attah-Hayford,,Male,,,,Active,,HH018,6 EDMONSTONE CRESCENT NG5 5UW,NG5 5UW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M064,Raphael Attah-Hayford,,Raphael,,Attah-Hayford,,Male,,,,Active,,HH018,6 EDMONSTONE CRESCENT NG5 5UW,NG5 5UW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M065,Amy Attah-Hayford,,Amy,,Attah-Hayford,,Female,,,,Active,,HH018,6 EDMONSTONE CRESCENT NG5 5UW,NG5 5UW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M066,Ruby Attah- Hayford,,Ruby,Attah-,Hayford,,Female,,,,Active,,HH018,6 EDMONSTONE CRESCENT NG5 5UW,NG5 5UW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M067,Sandra Darkwa,,Sandra,,Darkwa,,Female,,,,Active,,HH019,1 FERNDENE DRIVE NG10 3RR,NG10 3RR,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M068,Andrew Darkwa,,Andrew,,Darkwa,,Male,,,,Active,,HH019,1 FERNDENE DRIVE NG10 3RR,NG10 3RR,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M069,Giftee Cooke,,Giftee,,Cooke,,Female,,,,Active,,HH020,4 OAKMEAD AVENUE NG8 3AG,NG8 3AG,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M070,Irene Cooke,,Irene,,Cooke,,Female,,,,Irregular,,HH020,4 OAKMEAD AVENUE NG8 3AG,NG8 3AG,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M071,Annie Cooke,,Annie,,Cooke,,Female,,,,Active,,HH020,4 OAKMEAD AVENUE NG8 3AG,NG8 3AG,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M072,Elfrida Amamoo,,Elfrida,,Amamoo,,Female,,,,Active,,HH021,37 BIDFORD ROAD NG8 6FP,NG8 6FP,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M073,Charlene Amamoo,,Charlene,,Amamoo,,Female,,,,Active,,HH021,37 BIDFORD ROAD NG8 6FP,NG8 6FP,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M074,Evans Mwangi,,Evans,,Mwangi,,,,,,Active,,HH022,34 ARGYLE COURT NG7 3LW,NG7 3LW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M075,Esther Mwangi,,Esther,,Mwangi,,Female,,,,Active,,HH022,34 ARGYLE COURT NG7 3LW,NG7 3LW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M076,Angel Mwangi,,Angel,,Mwangi,,Female,,,,Active,,HH022,34 ARGYLE COURT NG7 3LW,NG7 3LW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M077,Gabriel Karanja,,Gabriel,,Karanja,,Male,,,,Active,,HH023,55 QUERNEBY ROAD NG3 5JA,NG3 5JA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M078,Thecla Mbateh,,Thecla,,Mbateh,,Female,,,,Active,,HH024,115 POTTERS HOLLOW NG6 8PB,NG6 8PB,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M079,Nghombanu Cyprian Ayoniseh,,Nghombanu,Cyprian,Ayoniseh,,Male,,,,Active,,HH024,115 POTTERS HOLLOW NG6 8PB,NG6 8PB,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M080,Zaira Ayoniseh,,Zaira,,Ayoniseh,,Female,,,,Active,,HH025,POTTERS HOLLOW NG6 8PB,NG6 8PB,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M081,Zion Ayoniseh,,Zion,,Ayoniseh,,Male,,,,Active,,HH025,POTTERS HOLLOW NG6 8PB,NG6 8PB,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M082,Esther Tetteh Kpeglo,,Esther,Tetteh,Kpeglo,,Female,,,,Active,,HH026,23 BECKELY ROAD NG8 6GY,NG8 6GY,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M083,Elinam Kwarteng,,Elinam,,Kwarteng,,Female,,,,Active,,HH026,23 BECKELY ROAD NG8 6GY,NG8 6GY,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M084,Abladey Badu,,Abladey,,Badu,,Male,,,,Active,,HH027,15 BRADDOCK CLOSE NG7 2FN,NG7 2FN,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M085,Jennifer Badu,,Jennifer,,Badu,,Female,,,,Active,,HH027,15 BRADDOCK CLOSE NG7 2FN,NG7 2FN,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M086,Eleana Badu,,Eleana,,Badu,,Female,,,,Active,,HH027,15 BRADDOCK CLOSE NG7 2FN,NG7 2FN,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M087,Eleora Badu,,Eleora,,Badu,,Female,,,,Active,,HH027,15 BRADDOCK CLOSE NG7 2FN,NG7 2FN,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M088,Elkan Badu,,Elkan,,Badu,,Male,,,,Active,,HH027,15 BRADDOCK CLOSE NG7 2FN,NG7 2FN,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M089,David Amponsah,,David,,Amponsah,,Male,,,,Dormant,,,,,True,Missing address; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M090,Kwame Amponsah,,Kwame,,Amponsah,,Male,,,,Dormant,,,,,True,Missing address; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M091,Ezekiel Amponsah,,Ezekiel,,Amponsah,,,,,,Dormant,,,,,True,Missing address; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M092,Racheal Osiogbovba,,Racheal,,Osiogbovba,,Female,,,,Active,,HH028,22 TONELIER ROAD NG7 2RW,NG7 2RW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M093,Ovine Osiogbovba,,Ovine,,Osiogbovba,,Male,,,,Active,,HH028,22 TONELIER ROAD NG7 2RW,NG7 2RW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M094,Rachel's Mum,,Rachel's,,Mum,,Female,,,,Archived,,HH028,22 TONELIER ROAD NG7 2RW,NG7 2RW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M095,Daisy Boma Osiogboyba,,Daisy,Boma,Osiogboyba,,Female,,,,Active,,HH028,22 TONELIER ROAD NG7 2RW,NG7 2RW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M096,Delvin Wede Osiogboyba,,Delvin,Wede,Osiogboyba,,Male,,,,Active,,HH028,22 TONELIER ROAD NG7 2RW,NG7 2RW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M097,Abena Yeboah,,Abena,,Yeboah,,Female,,,,Active,,HH029,562 WOODBOROUGH ROAD (FLAT 1) NG3 5FF,NG3 5FF,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M098,Ethan Odwira Ohene Yeboah Kotey,,Ethan,Odwira Ohene Yeboah,Kotey,,Male,,,,Active,,HH029,562 WOODBOROUGH ROAD (FLAT 1) NG3 5FF,NG3 5FF,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M099,Evelyn Wireko,,Evelyn,,Wireko,,Female,,,,Active,,HH030,2 KILLERTON PARK ROAD NG2 75B,,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M100,James Boateng-Nti,,James,,Boateng-Nti,,Male,,,,Active,,HH031,17 BECK STREET NG4 1RU,NG4 1RU,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M101,Vera Damptey Bediako,,Vera,Damptey,Bediako,,Female,,,,Active,,HH031,17 BECK STREET NG4 1RU,NG4 1RU,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M102,Jaden Damptey Boateng-Nti,,Jaden,Damptey,Boateng-Nti,,Male,,,,Active,,HH031,17 BECK STREET NG4 1RU,NG4 1RU,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M103,Mercedes Damptey Boateng-Nti,,Mercedes,Damptey,Boateng-Nti,,Female,,,,Active,,HH031,17 BECK STREET NG4 1RU,NG4 1RU,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M104,Dr. Bismark Aha,Dr,Bismark,,Aha,,Male,,,,Active,,HH032,6 MUSTON CLOSE NG3 3ES,NG3 3ES,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M105,Josephina Aha,,Josephina,,Aha,,Female,,,,Active,,HH032,6 MUSTON CLOSE NG3 3ES,NG3 3ES,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M106,Jadon Aha,,Jadon,,Aha,,Male,,,,Active,,HH032,6 MUSTON CLOSE NG3 3ES,NG3 3ES,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M107,Nhyira Aha,,Nhyira,,Aha,,Female,,,,Active,,HH032,6 MUSTON CLOSE NG3 3ES,NG3 3ES,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M108,Baby Aha,,Baby,,Aha,,,,,,Active,,HH032,6 MUSTON CLOSE NG3 3ES,NG3 3ES,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M109,Nana Serwaa Baffour-Awuah,,Nana,Serwaa,Baffour-Awuah,,Female,,,,Archived,,HH033,41 MOUNTFIELD DRIVE NG5 5LH,NG5 5LH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M110,Duffie Baffour-Awuah,,Duffie,,Baffour-Awuah,,Female,,,,Archived,,HH033,41 MOUNTFIELD DRIVE NG5 5LH,NG5 5LH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M111,Maame Serwaa Baffour-Awuah,,Maame,Serwaa,Baffour-Awuah,,Female,,,,Archived,,HH033,41 MOUNTFIELD DRIVE NG5 5LH,NG5 5LH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M112,Innocente Mawushi,,Innocente,,Mawushi,,Female,,,,Active,,HH034,FLAT 21 BURROW COURT SNEINTON NG3 2AE,NG3 2AE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M113,Alexander Nyamekye Ameyaw,,Alexander,Nyamekye,Ameyaw,,Male,,,,Active,,HH034,FLAT 21 BURROW COURT SNEINTON NG3 2AE,NG3 2AE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M114,Elnathan Nyametease Kumah,,Elnathan,Nyametease,Kumah,,Male,,,,Active,,HH034,FLAT 21 BURROW COURT SNEINTON NG3 2AE,NG3 2AE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M115,Zerubbabel Kwaku Mireku,,Zerubbabel,Kwaku,Mireku,,Male,,,,Active,,HH034,FLAT 21 BURROW COURT SNEINTON NG3 2AE,NG3 2AE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M116,Raquel Ross,,Raquel,,Ross,,Female,,,,Irregular,,HH035,143 LOWER PARLIAMENT STREET NG1 1EE,NG1 1EE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M117,Edward Tetteh,,Edward,,Tetteh,,Male,,,,Irregular,,HH035,143 LOWER PARLIAMENT STREET NG1 1EE,NG1 1EE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M118,Albert Ghansah,,Albert,,Ghansah,,Male,,,,Irregular,,HH036,3 WEAVE CLOSE NG6 0FH,NG6 0FH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M119,Ana Celestin,,Ana,,Celestin,,Female,,,,Active,,HH037,10 CINDERHILL WALK NG6 8RW,NG6 8RW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M120,Anisa .,,Anisa,,.,,Female,,,,Active,,HH038,2 CAUNTON AVENUE NG3 5HH,NG3 5HH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M121,Bernice Adutwumwaa,,Bernice,,Adutwumwaa,,Female,,,,Active,,HH039,12 BROOK COURT PLAYER STREET NG7 5PP,NG7 5PP,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M122,Caroline Aggrey,,Caroline,,Aggrey,,Female,,,,Irregular,,HH040,37 EWELL ROAD NG8 2DE,NG8 2DE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M123,Charles Martey,,Charles,,Martey,,,,,,Irregular,,HH041,FLAT 3 NG3 5QQ,NG3 5QQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M124,Daniel Ogunremi,,Daniel,,Ogunremi,,Male,,,,Dormant,,HH042,9 DRUMMOND ROAD DE7 5HA,DE7 5HA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M125,Devenay Smith,,Devenay,,Smith,,Female,,,,Active,,HH043,12 DEEPDEENE CLOSE NG8 6BL,NG8 6BL,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M126,Donna Bennetts,,Donna,,Bennetts,,Female,,,,Active,,HH044,84 WOODFIELD ROAD NG8 6HZ,NG8 6HZ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M127,Dora Aha,,Dora,,Aha,,Female,,,,Archived,,HH045,24 ABBOTSFORD DRIVE NG3 4PN,NG3 4PN,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M128,Dorea Lema,,Dorea,,Lema,,Female,,,,Active,,HH046,16 ROMAN DRIVE NG6 0NX,NG6 0NX,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M129,Ebere Ndwuchuku,,Ebere,,Ndwuchuku,,Female,,,,Active,,HH047,56 LAVENDER WALK NG3 4PS,NG3 4PS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M130,Elisha Fordjour,,Elisha,,Fordjour,,Male,,,,Active,,HH048,46 KENTRICK ROAD NG3 6HN,NG3 6HN,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M131,Elsie Nandi Chikoleka,,Elsie,Nandi,Chikoleka,,Female,,,,Active,,HH049,92A BASFORD ROAD NG6 0JL,NG6 0JL,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M132,Esther Tawiah Anyan,,Esther,Tawiah,Anyan,,Female,,,,Active,,HH050,20 RAWNSLEY DRIVE NG4 2SX,NG4 2SX,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M133,Eugene Amoasi,,Eugene,,Amoasi,,Male,,,,Active,,HH051,100 DENNIS AVENUE NG9 2RE,NG9 2RE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M134,Evangeline Buah,,Evangeline,,Buah,,Female,,,,Dormant,,HH001,4 DENTON DRIVE NG2 7FS,NG2 7FS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M135,Eyram Afenyo,,Eyram,,Afenyo,,Female,,,,Active,,HH012,8 PENRHYN CLOSE NG3 1NG,NG3 1NG,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M136,Fabio Ave,,Fabio,,Ave,,Male,,,,Active,,,,,True,Missing address; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M137,Genevieve Yankah,,Genevieve,,Yankah,,Female,,,,Active,,HH052,96 ELTHAM DRIVE NG8 6BQ,NG8 6BQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M138,Glaudi Lukaku,,Glaudi,,Lukaku,,Male,,,,Active,,HH053,104 RAGDALE ROAD NG6 8GQ,NG6 8GQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M139,Isabella Yeboah,,Isabella,,Yeboah,,Female,,,,Active,,HH054,150 PORTLAND ROAD NG15 7SA,NG15 7SA,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M140,Jennifer Frimpong,,Jennifer,,Frimpong,,Female,,,,Active,,HH055,69 ALISON DRIVE,,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M141,Andrew Frimpong,,Andrew,,Frimpong,,Male,,,,Active,,HH056,69 ARLESTON DRIVE NG8 2FZ,NG8 2FZ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M142,Joshua Frimpong,,Joshua,,Frimpong,,Male,,,,Active,,HH056,69 ARLESTON DRIVE NG8 2FZ,NG8 2FZ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M143,Naomi Frimpong,,Naomi,,Frimpong,,Female,,,,Active,,HH056,69 ARLESTON DRIVE NG8 2FZ,NG8 2FZ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M144,Jerome Nelson,,Jerome,,Nelson,,Male,,,,Dormant,,HH057,67 HALLAM ROAD NG3 6HR,NG3 6HR,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M145,John Aderibigbe-Simeon,,John,,Aderibigbe-Simeon,,Male,,,,Dormant,,HH058,160B FOSTER STREET NG7 3DD,NG7 3DD,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M146,Kemari Kirkland,,Kemari,,Kirkland,,Male,,,,Active,,HH059,29 CLAYGATE NG3 6JX,NG3 6JX,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M147,Kristen Obrien,,Kristen,,Obrien,,Female,,,,Active,,HH038,2 CAUNTON AVENUE NG3 5HH,NG3 5HH,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M148,Kyrie Kwaky,,Kyrie,,Kwaky,,Male,,,,Active,,HH060,2 WATERMARK CLOSE NG5 1RL,NG5 1RL,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M149,Lisa-Marie Brobbey,,Lisa-Marie,,Brobbey,,Female,,,,Active,,HH014,10 MALBON CLOSE NG3 3BS,NG3 3BS,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M150,Oriana Obrien,,Oriana,,Obrien,,Female,,,,Active,,HH059,29 CLAYGATE NG3 6JX,NG3 6JX,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M151,Princilla Appiah,,Princilla,,Appiah,,Female,,,,Active,,HH061,27C TOTON LANE NG9 7HB,NG9 7HB,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M152,Rev. Nana Yaw Yeboah,Rev,Nana,Yaw,Yeboah,,Male,,,,Active,,HH062,92 BIRSTALL MEADOW LANE LE4 3NF,LE4 3NF,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M153,Samuel Chiboka,,Samuel,,Chiboka,,Male,,,,Active,,HH063,11 WIVERTON ROAD NG7 6NQ,NG7 6NQ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M154,Sophy David,,Sophy,,David,,Female,,,,Active,,HH064,65 HOEFIELD CRESCENT NG6 8AZ,NG6 8AZ,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M155,Soreya McIndoe,,Soreya,,McIndoe,,Female,,,,Active,,HH065,25 CEDNEY AVENUE NG3 3DB,NG3 3DB,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M156,Stephen Dwamena,,Stephen,,Dwamena,,Male,,,,Active,,HH066,14 EMBLEY ROAD NG5 1RE,NG5 1RE,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M157,Trizah Mwangi,,Trizah,,Mwangi,,Female,,,,Active,,HH067,32 ARGYLE STREET RADFORD NG7 3LW,NG7 3LW,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+410891dd,Peter Rock,,Peter,,Rock,,Male,,,,Active,,HH003,13 LOBELIA CLOSE NG3 4PT,NG3 4PT,True,Non-standard member ID; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date

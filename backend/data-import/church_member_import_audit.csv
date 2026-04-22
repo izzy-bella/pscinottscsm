@@ -1,0 +1,159 @@
+external_member_id,full_name,membership_status,household_id,needs_review,data_quality_notes
+M001,Dr. Mark Buah,Active,HH001,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M002,Yvonne Buah,Active,HH001,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M003,Kondwani Jere,Active,HH002,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M004,Jean Jere,Active,HH002,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M005,Dr. Michael Asinyaka,Active,HH003,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M006,Beatrice Tindana Abantoliya,Active,HH003,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M007,Immanuella Asinyaka,Active,HH003,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M008,Teni Asinyaka,Active,HH003,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M009,Baby Asinyaka,Active,HH003,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M010,Elizabeth Asinyaka,Active,HH003,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M011,Akpandah Anyima-Ackah,Active,HH004,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M012,Josephine Anyima-Ackah,Active,HH004,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M013,Netanya Anyima-Ackah,Active,HH004,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M014,Stephen Anyima-Ackah,Active,HH004,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M015,Enoch Anyima-Ackah,Active,HH004,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M016,Sydney Laryea,Active,HH005,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M017,Venny Laryea,Active,HH005,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M018,Alexander Laryea,Active,HH005,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M019,Ethan Laryea,Active,HH005,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M020,Phoebe Laryea,Active,HH005,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M021,Alfred Aliu,Dormant,HH006,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M022,Stacy Purcell,Active,HH006,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M023,Thea Aliu,Active,HH006,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M024,Theon Aliu,Active,HH006,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M025,Beverly Agana,Active,HH007,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M026,Brenda Agana,Active,HH007,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M027,Barbara Amoateng,Active,HH008,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M028,Elisha Ennin,Active,HH008,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M029,Nathan Amoateng,Active,HH008,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M030,Anthony Akuoko,Active,HH009,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M031,Ifey Akuoko,Active,HH009,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M032,Zachary Akuoko,Active,HH009,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M033,Zane Akuoko,Active,HH009,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M034,Zoe Akuoko,Active,HH009,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M035,Ps. Ivo Metuge,Active,HH010,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M036,Rita Ndip,Active,HH010,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M037,Janice Metuge,Active,HH010,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M038,Ivor Junior Metuge,Active,HH010,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M039,Jayden Metuge,Active,HH010,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M040,Juliana Yohou,Active,HH011,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M041,Robert Boateng,Irregular,HH011,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M042,Elijah Boateng,Active,HH011,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M043,Tiffany Boateng,Active,HH011,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M044,Emelia Kpakpa,Active,HH012,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M045,Godwin Aklika,Active,HH012,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M046,Etornam Korsi Afenyo,Active,HH012,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M047,Selase Kwaku Afenyo,Active,HH012,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M048,Rev. Clement Amaning,Active,HH013,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M049,LR. Marie Amaning,Active,HH013,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M050,Sean-Martin Mzondo,Active,HH014,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M051,Adrian Maulge,Active,HH014,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M052,Tenatswa Mzondo,Active,HH014,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M053,Nathaniel Osei Kwakye,Dormant,HH015,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M054,Gillian Anima Asare,Active,HH015,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M055,Carly Ahenkorah,Active,HH016,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M056,Maryjo Codjoe,Active,HH016,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M057,Osahon Stephen Bello,Irregular,HH017,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M058,Esther Bello,Active,HH017,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M059,Aaron Bello,Active,HH017,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M060,Albert Bello,Active,HH017,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M061,Alexi Bello,Active,HH017,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M062,Rostella Appiah-Kubi,Active,HH018,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M063,Edward Attah-Hayford,Active,HH018,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M064,Raphael Attah-Hayford,Active,HH018,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M065,Amy Attah-Hayford,Active,HH018,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M066,Ruby Attah- Hayford,Active,HH018,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M067,Sandra Darkwa,Active,HH019,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M068,Andrew Darkwa,Active,HH019,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M069,Giftee Cooke,Active,HH020,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M070,Irene Cooke,Irregular,HH020,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M071,Annie Cooke,Active,HH020,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M072,Elfrida Amamoo,Active,HH021,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M073,Charlene Amamoo,Active,HH021,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M074,Evans Mwangi,Active,HH022,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M075,Esther Mwangi,Active,HH022,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M076,Angel Mwangi,Active,HH022,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M077,Gabriel Karanja,Active,HH023,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M078,Thecla Mbateh,Active,HH024,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M079,Nghombanu Cyprian Ayoniseh,Active,HH024,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M080,Zaira Ayoniseh,Active,HH025,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M081,Zion Ayoniseh,Active,HH025,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M082,Esther Tetteh Kpeglo,Active,HH026,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M083,Elinam Kwarteng,Active,HH026,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M084,Abladey Badu,Active,HH027,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M085,Jennifer Badu,Active,HH027,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M086,Eleana Badu,Active,HH027,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M087,Eleora Badu,Active,HH027,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M088,Elkan Badu,Active,HH027,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M089,David Amponsah,Dormant,,True,Missing address; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M090,Kwame Amponsah,Dormant,,True,Missing address; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M091,Ezekiel Amponsah,Dormant,,True,Missing address; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M092,Racheal Osiogbovba,Active,HH028,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M093,Ovine Osiogbovba,Active,HH028,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M094,Rachel's Mum,Archived,HH028,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M095,Daisy Boma Osiogboyba,Active,HH028,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M096,Delvin Wede Osiogboyba,Active,HH028,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M097,Abena Yeboah,Active,HH029,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M098,Ethan Odwira Ohene Yeboah Kotey,Active,HH029,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M099,Evelyn Wireko,Active,HH030,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M100,James Boateng-Nti,Active,HH031,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M101,Vera Damptey Bediako,Active,HH031,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M102,Jaden Damptey Boateng-Nti,Active,HH031,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M103,Mercedes Damptey Boateng-Nti,Active,HH031,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M104,Dr. Bismark Aha,Active,HH032,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M105,Josephina Aha,Active,HH032,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M106,Jadon Aha,Active,HH032,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M107,Nhyira Aha,Active,HH032,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M108,Baby Aha,Active,HH032,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M109,Nana Serwaa Baffour-Awuah,Archived,HH033,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M110,Duffie Baffour-Awuah,Archived,HH033,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M111,Maame Serwaa Baffour-Awuah,Archived,HH033,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M112,Innocente Mawushi,Active,HH034,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M113,Alexander Nyamekye Ameyaw,Active,HH034,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M114,Elnathan Nyametease Kumah,Active,HH034,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M115,Zerubbabel Kwaku Mireku,Active,HH034,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M116,Raquel Ross,Irregular,HH035,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M117,Edward Tetteh,Irregular,HH035,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M118,Albert Ghansah,Irregular,HH036,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M119,Ana Celestin,Active,HH037,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M120,Anisa .,Active,HH038,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M121,Bernice Adutwumwaa,Active,HH039,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M122,Caroline Aggrey,Irregular,HH040,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M123,Charles Martey,Irregular,HH041,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date; Missing gender
+M124,Daniel Ogunremi,Dormant,HH042,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M125,Devenay Smith,Active,HH043,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M126,Donna Bennetts,Active,HH044,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M127,Dora Aha,Archived,HH045,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M128,Dorea Lema,Active,HH046,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M129,Ebere Ndwuchuku,Active,HH047,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M130,Elisha Fordjour,Active,HH048,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M131,Elsie Nandi Chikoleka,Active,HH049,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M132,Esther Tawiah Anyan,Active,HH050,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M133,Eugene Amoasi,Active,HH051,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M134,Evangeline Buah,Dormant,HH001,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M135,Eyram Afenyo,Active,HH012,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M136,Fabio Ave,Active,,True,Missing address; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M137,Genevieve Yankah,Active,HH052,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M138,Glaudi Lukaku,Active,HH053,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M139,Isabella Yeboah,Active,HH054,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M140,Jennifer Frimpong,Active,HH055,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M141,Andrew Frimpong,Active,HH056,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M142,Joshua Frimpong,Active,HH056,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M143,Naomi Frimpong,Active,HH056,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M144,Jerome Nelson,Dormant,HH057,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M145,John Aderibigbe-Simeon,Dormant,HH058,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M146,Kemari Kirkland,Active,HH059,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M147,Kristen Obrien,Active,HH038,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M148,Kyrie Kwaky,Active,HH060,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M149,Lisa-Marie Brobbey,Active,HH014,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M150,Oriana Obrien,Active,HH059,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M151,Princilla Appiah,Active,HH061,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M152,Rev. Nana Yaw Yeboah,Active,HH062,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M153,Samuel Chiboka,Active,HH063,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M154,Sophy David,Active,HH064,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M155,Soreya McIndoe,Active,HH065,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M156,Stephen Dwamena,Active,HH066,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+M157,Trizah Mwangi,Active,HH067,True,Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
+410891dd,Peter Rock,Active,HH003,True,Non-standard member ID; Missing DOB; Missing phone; Missing email; Missing contact preference; Missing join date
