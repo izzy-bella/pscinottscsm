@@ -151,11 +151,18 @@ export async function markAttendance(req, res) {
 
   const member = await prisma.member.findUnique({
     where: { id: payload.memberId },
-    select: { id: true }
+    select: {
+      id: true,
+      assignedLeaderUserId: true
+    }
   });
 
   if (!member) {
     return res.status(404).json({ error: 'Member not found' });
+  }
+
+  if (req.user?.role === 'MINISTRY_LEADER' && member.assignedLeaderUserId !== req.user.sub) {
+    return res.status(403).json({ error: 'Ministry leaders can only mark attendance for members assigned to them' });
   }
 
   const record = await prisma.attendanceRecord.upsert({
@@ -212,6 +219,26 @@ export async function bulkMarkAttendance(req, res) {
 
   if (!session) {
     return res.status(404).json({ error: 'Attendance session not found' });
+  }
+
+  if (req.user?.role === 'MINISTRY_LEADER') {
+    const assignedMembers = await prisma.member.findMany({
+      where: {
+        id: {
+          in: payload.records.map((record) => record.memberId)
+        }
+      },
+      select: {
+        id: true,
+        assignedLeaderUserId: true
+      }
+    });
+
+    const hasUnassignedRecord = assignedMembers.some((member) => member.assignedLeaderUserId !== req.user.sub);
+
+    if (hasUnassignedRecord) {
+      return res.status(403).json({ error: 'Ministry leaders can only bulk mark attendance for members assigned to them' });
+    }
   }
 
   for (const record of payload.records) {

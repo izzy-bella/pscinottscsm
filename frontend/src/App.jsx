@@ -138,6 +138,10 @@ function canManageGuests(role) {
   return ['SUPER_ADMIN', 'ADMIN', 'PASTOR', 'MINISTRY_LEADER'].includes(role);
 }
 
+function canShepherdMembers(role) {
+  return ['SUPER_ADMIN', 'ADMIN', 'PASTOR', 'MINISTRY_LEADER'].includes(role);
+}
+
 function SectionCard({ title, subtitle, children, action }) {
   return (
     <section className="card">
@@ -255,14 +259,18 @@ function MemberDrawer({
   member,
   onClose,
   onSave,
+  onAssignLeader,
   onUploadPhoto,
   onUploadDocument,
   onAddNote,
   busy,
   assetUrl,
-  canEdit
+  canEdit,
+  canAssignLeader,
+  ministryLeaders
 }) {
   const [formState, setFormState] = useState(initialForm);
+  const [assignedLeaderUserId, setAssignedLeaderUserId] = useState('');
   const [docFile, setDocFile] = useState(null);
   const [docMeta, setDocMeta] = useState({ category: 'General', note: '' });
   const [noteState, setNoteState] = useState({ title: '', body: '' });
@@ -288,6 +296,7 @@ function MemberDrawer({
       notes: member.notes || '',
       postcode: member.postcode || member.household?.postcode || ''
     });
+    setAssignedLeaderUserId(member.assignedLeader?.id || '');
     setDocFile(null);
     setDocMeta({ category: 'General', note: '' });
     setNoteState({ title: '', body: '' });
@@ -462,7 +471,53 @@ function MemberDrawer({
             </form>
           </div>
 
-          <div className="profile-block stack-gap">
+          <div className="stack-gap">
+            <div className="profile-block stack-gap">
+              <div>
+                <h4>Assign to leader</h4>
+                <div className="mini-row">
+                  <span>Current leader</span>
+                  <strong>{member.assignedLeader?.fullName || 'Not assigned'}</strong>
+                </div>
+                {member.assignedLeader?.email ? (
+                  <div className="table-muted">{member.assignedLeader.email} • {member.assignedLeader.role}</div>
+                ) : (
+                  <div className="table-muted">Choose a ministry leader from the list below.</div>
+                )}
+              </div>
+              {canAssignLeader ? (
+                <form
+                  className="stack-gap"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    onAssignLeader(assignedLeaderUserId);
+                  }}
+                >
+                  <label>
+                    Ministry leader
+                    <select
+                      value={assignedLeaderUserId}
+                      disabled={busy}
+                      onChange={(event) => setAssignedLeaderUserId(event.target.value)}
+                    >
+                      <option value="">No leader assigned</option>
+                      {ministryLeaders.map((leader) => (
+                        <option key={leader.id} value={leader.id}>
+                          {leader.fullName} ({leader.role})
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <div className="form-actions">
+                    <button className="primary-btn" type="submit" disabled={busy}>
+                      <Users size={16} /> Save assignment
+                    </button>
+                  </div>
+                </form>
+              ) : null}
+            </div>
+
+            <div className="profile-block stack-gap">
             <div>
               <h4>Attached documents</h4>
               {canEdit ? (
@@ -497,6 +552,7 @@ function MemberDrawer({
                 </div>
               )) : <div className="empty-panel">No attachments yet.</div>}
             </div>
+          </div>
           </div>
         </div>
 
@@ -569,6 +625,8 @@ export default function App() {
   const [membersPayload, setMembersPayload] = useState({ data: [], pagination: { total: 0 } });
   const [households, setHouseholds] = useState([]);
   const [leaders, setLeaders] = useState([]);
+  const [ministryLeaders, setMinistryLeaders] = useState([]);
+  const [myMembers, setMyMembers] = useState([]);
   const [attendanceSessions, setAttendanceSessions] = useState([]);
   const [visitors, setVisitors] = useState([]);
   const [selectedSessionId, setSelectedSessionId] = useState('');
@@ -667,7 +725,7 @@ export default function App() {
     setLoading(true);
     setError('');
     try {
-      const [healthRes, dashboardRes, membersRes, householdsRes, sessionsRes, visitorsRes, leadersRes, usersRes] = await Promise.all([
+      const [healthRes, dashboardRes, membersRes, householdsRes, sessionsRes, visitorsRes, leadersRes, usersRes, assignableLeadersRes] = await Promise.all([
         api.health(),
         api.dashboard(),
         api.members({
@@ -680,14 +738,18 @@ export default function App() {
         api.attendanceSessions(),
         api.visitors(),
         api.leaders(),
-        isAdminRole(currentUser?.role) ? api.users() : Promise.resolve({ data: [] })
+        isAdminRole(currentUser?.role) ? api.users() : Promise.resolve({ data: [] }),
+        canShepherdMembers(currentUser?.role) ? api.assignableLeaders() : Promise.resolve({ data: [] })
       ]);
+      const myMembersRes = canShepherdMembers(currentUser?.role) ? await api.myMembers() : { data: [] };
       setHealth(healthRes);
       setDashboard(dashboardRes);
       setMembersPayload(membersRes);
       setHouseholds(householdsRes.data || []);
       setVisitors(visitorsRes.data || []);
       setLeaders(leadersRes.data || []);
+      setMinistryLeaders(assignableLeadersRes.data || []);
+      setMyMembers(myMembersRes.data || []);
       setUsers(usersRes.data || []);
       const sessions = sessionsRes.data || [];
       setAttendanceSessions(sessions);
@@ -757,6 +819,7 @@ export default function App() {
   const canManageAttendanceAccess = canManageAttendance(currentUser?.role);
   const canResetAttendanceAccess = canResetAttendance(currentUser?.role);
   const canManageGuestsAccess = canManageGuests(currentUser?.role);
+  const canShepherdMembersAccess = canShepherdMembers(currentUser?.role);
 
   async function refreshSelectedMember(memberId) {
     if (!memberId) return;
@@ -961,6 +1024,26 @@ export default function App() {
     }
   }
 
+  async function handleAssignLeader(nextLeaderUserId) {
+    if (!selectedMember?.id) return;
+    setProfileBusy(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      await api.assignMemberToLeader(selectedMember.id, {
+        assignedLeaderUserId: nextLeaderUserId || null
+      });
+      await refreshSelectedMember(selectedMember.id);
+      await loadData(selectedSessionId);
+      setSuccess(nextLeaderUserId ? 'Leader assignment updated.' : 'Leader assignment cleared.');
+    } catch (err) {
+      setError(err.message || 'Could not update leader assignment.');
+    } finally {
+      setProfileBusy(false);
+    }
+  }
+
   async function handleProfileImageUpload(file) {
     if (!selectedMember?.id) return;
     setProfileBusy(true);
@@ -1150,6 +1233,7 @@ export default function App() {
           ['dashboard', 'Dashboard'],
           ['account', 'Account'],
           ['people', 'People'],
+          ...(canShepherdMembersAccess ? [['my-members', 'My Members']] : []),
           ['leaders', 'Leaders'],
           ['households', 'Households'],
           ['attendance', 'Attendance'],
@@ -1307,6 +1391,7 @@ export default function App() {
                         <div className="table-muted">
                           {[member.gender, member.fellowshipType, member.basontaCategory].filter(Boolean).join(' • ') || '—'}
                         </div>
+                        {member.assignedLeader?.fullName ? <div className="table-muted">Shepherd: {member.assignedLeader.fullName}</div> : null}
                       </td>
                       <td>{member.externalMemberId || '—'}</td>
                       <td>{member.membershipStatus}</td>
@@ -1333,6 +1418,126 @@ export default function App() {
                 </tbody>
               </table>
             </div>
+          </SectionCard>
+        </div>
+      ) : null}
+
+      {tab === 'my-members' ? (
+        <div className="stack">
+          <div className="two-col">
+            <SectionCard
+              title="My Sheep"
+              subtitle="Members currently assigned to you as shepherd"
+              action={<div className="section-chip"><Users size={16} /> {myMembers.length} assigned</div>}
+            >
+              <div className="table-shell">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Member</th>
+                      <th>Fellowship</th>
+                      <th>Contact</th>
+                      <th>Attendance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {myMembers.map((member) => (
+                      <tr key={member.id}>
+                        <td>
+                          <button className="table-link" type="button" onClick={() => openMember(member.id)}>
+                            {member.fullName}
+                          </button>
+                          <div className="table-muted">{member.membershipStatus}</div>
+                        </td>
+                        <td>
+                          <div className="table-stack">
+                            <span>{member.fellowshipType || '—'}</span>
+                            <span className="table-muted">{member.fellowshipName || member.basontaCategory || ''}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="table-stack">
+                            <span><Mail size={14} /> {member.email || '—'}</span>
+                            <span><Phone size={14} /> {member.phoneNumber || '—'}</span>
+                          </div>
+                        </td>
+                        <td>{member._count?.attendanceRecords ?? 0} records</td>
+                      </tr>
+                    ))}
+                    {!myMembers.length && !loading ? (
+                      <tr>
+                        <td colSpan="4" className="empty-state-cell">No members assigned to you yet. Use the People section to assign some to yourself.</td>
+                      </tr>
+                    ) : null}
+                  </tbody>
+                </table>
+              </div>
+            </SectionCard>
+
+            <SectionCard
+              title={selectedSession?.title || 'Shepherd Attendance'}
+              subtitle={selectedSession ? `${formatDate(selectedSession.serviceDate)} • ${formatSessionCategory(selectedSession)}` : 'Open an attendance session to mark your assigned members'}
+              action={selectedSession ? <div className="section-chip"><CheckCircle2 size={16} /> My flock only</div> : null}
+            >
+              <div className="session-list">
+                {attendanceSessions.map((session) => (
+                  <button key={session.id} type="button" className={selectedSessionId === session.id ? 'session-card active' : 'session-card'} onClick={() => openSession(session.id)}>
+                    <div>
+                      <div className="table-name">{session.title}</div>
+                      <div className="table-muted">{formatDate(session.serviceDate)} • {formatSessionCategory(session)}</div>
+                    </div>
+                    <div className="session-count">{session.presentCount}</div>
+                  </button>
+                ))}
+              </div>
+            </SectionCard>
+          </div>
+
+          <SectionCard
+            title="Take Attendance for My Members"
+            subtitle="Quickly mark attendance for the members assigned to you"
+          >
+            {selectedSession ? (
+              <div className="table-shell attendance-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Member</th>
+                      <th>Current status</th>
+                      <th>Quick mark</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {myMembers.map((member) => {
+                      const record = sessionRecordMap.get(member.id);
+                      return (
+                        <tr key={member.id}>
+                          <td>
+                            <div className="table-name">{member.fullName}</div>
+                            <div className="table-muted">{member.fellowshipName || member.basontaCategory || member.fellowshipType || 'Assigned member'}</div>
+                          </td>
+                          <td><span className={`pill status-${(record?.status || 'UNMARKED').toLowerCase()}`}>{record?.status || 'UNMARKED'}</span></td>
+                          <td>
+                            <div className="action-row">
+                              {['PRESENT', 'LATE', 'ABSENT', 'VISITOR'].map((status) => (
+                                <button key={status} type="button" className={record?.status === status ? 'mini-btn active' : 'mini-btn'} onClick={() => markAttendance(member.id, status)}>
+                                  {status}
+                                </button>
+                              ))}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    {!myMembers.length ? (
+                      <tr>
+                        <td colSpan="3" className="empty-state-cell">No assigned members yet.</td>
+                      </tr>
+                    ) : null}
+                  </tbody>
+                </table>
+              </div>
+            ) : <div className="empty-panel">No attendance session selected yet.</div>}
           </SectionCard>
         </div>
       ) : null}
@@ -1973,12 +2178,15 @@ export default function App() {
         member={selectedMember}
         onClose={() => setSelectedMember(null)}
         onSave={handleMemberSave}
+        onAssignLeader={handleAssignLeader}
         onUploadPhoto={handleProfileImageUpload}
         onUploadDocument={handleDocumentUpload}
         onAddNote={handleMemberNote}
         busy={profileBusy}
         assetUrl={api.assetUrl}
         canEdit={canManagePeopleAccess}
+        canAssignLeader={canManagePeopleAccess}
+        ministryLeaders={ministryLeaders}
       />
     </div>
   );

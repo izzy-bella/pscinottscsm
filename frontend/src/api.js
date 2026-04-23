@@ -73,10 +73,21 @@ export const api = {
     return request(`/members${query ? `?${query}` : ''}`);
   },
   leaders: () => request('/members/leaders'),
+  assignableLeaders: () => request('/members/assignable-leaders'),
+  myMembers: () => request('/members/my-members'),
   member: (id) => request(`/members/${id}`),
   createMember: (payload) =>
     request('/members', {
       method: 'POST',
+      body: JSON.stringify(payload)
+    }),
+  assignMemberToMe: (id) =>
+    request(`/members/${id}/assign-to-me`, {
+      method: 'POST'
+    }),
+  assignMemberToLeader: (id, payload) =>
+    request(`/members/${id}/assigned-leader`, {
+      method: 'PATCH',
       body: JSON.stringify(payload)
     }),
   visitors: () => request('/members/visitors'),

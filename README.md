@@ -119,15 +119,16 @@ If you are upgrading an existing database, run the Prisma migration again after 
 
 > Note: In this starter, `db:migrate` uses `prisma db push` instead of migration files, so it works cleanly for fresh local development without a checked-in migrations directory.
 
-## Production deployment
+## Production deployment with HTTPS domain
 
-This repo now includes a production-ready Docker setup for a single-domain deployment:
+This repo now includes a production-ready Docker setup for a single-domain deployment with automatic HTTPS:
 
 - [docker-compose.prod.yml](/Users/ezzybella/Downloads/church-cms-starter-profile-upgrade-2/docker-compose.prod.yml)
 - [backend/Dockerfile](/Users/ezzybella/Downloads/church-cms-starter-profile-upgrade-2/backend/Dockerfile)
 - [frontend/Dockerfile](/Users/ezzybella/Downloads/church-cms-starter-profile-upgrade-2/frontend/Dockerfile)
 - [frontend/nginx.conf](/Users/ezzybella/Downloads/church-cms-starter-profile-upgrade-2/frontend/nginx.conf)
 - [backend/.env.production.example](/Users/ezzybella/Downloads/church-cms-starter-profile-upgrade-2/backend/.env.production.example)
+- [Caddyfile](/Users/ezzybella/Downloads/church-cms-starter-profile-upgrade-2/Caddyfile)
 
 ### 1. Create production env file
 
@@ -143,39 +144,54 @@ Then edit:
 - `APP_URL`
 - `ADMIN_PASSWORD`
 
-### 2. Start production stack
+### 2. Point your domain to the server
+
+Create DNS records:
+
+- `A` record for `your-domain.com` -> your server public IP
+- optional `A` record for `www.your-domain.com` -> your server public IP
+
+### 3. Update the Caddy domain
+
+Edit [Caddyfile](/Users/ezzybella/Downloads/church-cms-starter-profile-upgrade-2/Caddyfile) and replace:
+
+```txt
+your-domain.com
+```
+
+with your real domain, for example:
+
+```txt
+pscinotts.org
+```
+
+### 4. Start production stack
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d --build
 ```
 
-### 3. Run schema push and seed inside the backend container
+### 5. Run schema push and seed inside the backend container
 
 ```bash
 docker compose -f docker-compose.prod.yml exec backend npm run db:migrate
 docker compose -f docker-compose.prod.yml exec backend npm run db:seed
 ```
 
-### 4. Open the app
+### 6. Open the app
 
-The frontend is served on port `80` and proxies:
+Caddy listens on:
 
-- `/api` -> backend
-- `/uploads` -> backend uploads
+- `80` for HTTP
+- `443` for HTTPS
 
-This means the app can run behind one domain such as `https://your-domain.com`.
-
-### 5. Put HTTPS in front
-
-For real production, run this behind:
-
-- Nginx with Let's Encrypt, or
-- Caddy, or
-- a cloud load balancer / reverse proxy
+It automatically obtains and renews HTTPS certificates for your domain and forwards traffic to the frontend container.
 
 ### Production notes
 
 - Uploads are persisted in the `church_cms_uploads` Docker volume
 - PostgreSQL data is persisted in the `church_cms_pgdata_prod` Docker volume
+- Caddy certificate data is persisted in the `caddy_data` Docker volume
 - The frontend now defaults to `/api` in production builds, so a single-domain deployment works cleanly
 - Password reset email delivery still needs a real SMTP/provider integration
+- Your server firewall must allow inbound `80` and `443`

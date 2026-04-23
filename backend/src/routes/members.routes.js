@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import {
   addMemberNote,
+  assignMemberToLeader,
+  assignMemberToSelf,
   createMember,
   getMember,
+  listAssignableLeaders,
   listLeaders,
   listMembers,
+  listMyMembers,
   listVisitors,
   registerVisitor,
   updateVisitorFollowUp,
@@ -19,7 +23,11 @@ const router = Router();
 
 router.get('/', listMembers);
 router.get('/leaders', listLeaders);
+router.get('/assignable-leaders', requireRole(ROLE_GROUPS.shepherds), listAssignableLeaders);
+router.get('/my-members', requireRole(ROLE_GROUPS.shepherds), listMyMembers);
 router.get('/visitors', listVisitors);
+router.post('/:id/assign-to-me', requireRole(ROLE_GROUPS.shepherds), assignMemberToSelf);
+router.patch('/:id/assigned-leader', requireRole(ROLE_GROUPS.peopleEditors), assignMemberToLeader);
 router.post('/visitors', requireRole(ROLE_GROUPS.peopleEditors), registerVisitor);
 router.patch('/visitors/:id/follow-up', requireRole(ROLE_GROUPS.peopleEditors), updateVisitorFollowUp);
 router.get('/:id', getMember);

@@ -72,6 +72,10 @@ const visitorFollowUpSchema = z.object({
   visitorFollowUpNotes: z.string().trim().optional().or(z.literal(''))
 });
 
+const leaderAssignmentSchema = z.object({
+  assignedLeaderUserId: z.string().trim().optional().or(z.literal('')).or(z.null())
+});
+
 function normalizeMemberInput(payload) {
   return {
     externalMemberId: payload.externalMemberId || null,
@@ -128,6 +132,14 @@ async function getMemberById(memberId) {
     where: { id: memberId },
     include: {
       household: true,
+      assignedLeader: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          role: true
+        }
+      },
       attendanceRecords: {
         include: {
           session: true
@@ -194,7 +206,14 @@ export async function listMembers(req, res) {
     prisma.member.findMany({
       where,
       include: {
-        household: true
+        household: true,
+        assignedLeader: {
+          select: {
+            id: true,
+            fullName: true,
+            email: true
+          }
+        }
       },
       orderBy: {
         fullName: 'asc'
@@ -239,7 +258,65 @@ export async function listLeaders(req, res) {
       { fullName: 'asc' }
     ],
     include: {
-      household: true
+      household: true,
+      assignedLeader: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true
+        }
+      }
+    }
+  });
+
+  res.json({ data });
+}
+
+export async function listMyMembers(req, res) {
+  const data = await prisma.member.findMany({
+    where: {
+      assignedLeaderUserId: req.user.sub
+    },
+    include: {
+      household: true,
+      assignedLeader: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true
+        }
+      },
+      _count: {
+        select: {
+          attendanceRecords: true
+        }
+      }
+    },
+    orderBy: {
+      fullName: 'asc'
+    }
+  });
+
+  res.json({ data });
+}
+
+export async function listAssignableLeaders(req, res) {
+  const data = await prisma.user.findMany({
+    where: {
+      isActive: true,
+      role: {
+        in: ['SUPER_ADMIN', 'ADMIN', 'PASTOR', 'MINISTRY_LEADER']
+      }
+    },
+    orderBy: [
+      { role: 'asc' },
+      { fullName: 'asc' }
+    ],
+    select: {
+      id: true,
+      fullName: true,
+      email: true,
+      role: true
     }
   });
 
@@ -453,6 +530,136 @@ export async function updateMember(req, res) {
       fellowshipType: member.fellowshipType,
       leadershipRole: member.leadershipRole,
       isLeader: member.isLeader
+    }
+  });
+
+  res.json(member);
+}
+
+export async function assignMemberToSelf(req, res) {
+  const existing = await prisma.member.findUnique({
+    where: { id: req.params.id },
+    select: {
+      id: true,
+      fullName: true,
+      assignedLeaderUserId: true
+    }
+  });
+
+  if (!existing) {
+    return res.status(404).json({ error: 'Member not found' });
+  }
+
+  const actor = await prisma.user.findUnique({
+    where: { id: req.user.sub },
+    select: {
+      id: true,
+      fullName: true,
+      email: true,
+      role: true
+    }
+  });
+
+  if (!actor) {
+    return res.status(404).json({ error: 'Leader account not found' });
+  }
+
+  const member = await prisma.member.update({
+    where: { id: req.params.id },
+    data: {
+      assignedLeaderUserId: actor.id
+    },
+    include: {
+      assignedLeader: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true
+        }
+      }
+    }
+  });
+
+  await logAuditEvent(req, {
+    action: 'MEMBER_ASSIGNED_TO_LEADER',
+    entityType: 'Member',
+    entityId: member.id,
+    summary: `Assigned member ${member.fullName} to leader ${actor.fullName}`,
+    metadata: {
+      leaderUserId: actor.id,
+      leaderEmail: actor.email,
+      previousLeaderUserId: existing.assignedLeaderUserId
+    }
+  });
+
+  res.json(member);
+}
+
+export async function assignMemberToLeader(req, res) {
+  const payload = leaderAssignmentSchema.parse(req.body);
+  const existing = await prisma.member.findUnique({
+    where: { id: req.params.id },
+    select: {
+      id: true,
+      fullName: true,
+      assignedLeaderUserId: true
+    }
+  });
+
+  if (!existing) {
+    return res.status(404).json({ error: 'Member not found' });
+  }
+
+  let assignedLeader = null;
+  if (payload.assignedLeaderUserId) {
+    assignedLeader = await prisma.user.findUnique({
+      where: { id: payload.assignedLeaderUserId },
+      select: {
+        id: true,
+        fullName: true,
+        email: true,
+        role: true,
+        isActive: true
+      }
+    });
+
+    if (!assignedLeader || !assignedLeader.isActive) {
+      return res.status(404).json({ error: 'Leader account not found' });
+    }
+
+    if (!['SUPER_ADMIN', 'ADMIN', 'PASTOR', 'MINISTRY_LEADER'].includes(assignedLeader.role)) {
+      return res.status(400).json({ error: 'Selected user is not a ministry leader' });
+    }
+  }
+
+  const member = await prisma.member.update({
+    where: { id: req.params.id },
+    data: {
+      assignedLeaderUserId: assignedLeader?.id || null
+    },
+    include: {
+      assignedLeader: {
+        select: {
+          id: true,
+          fullName: true,
+          email: true,
+          role: true
+        }
+      }
+    }
+  });
+
+  await logAuditEvent(req, {
+    action: assignedLeader ? 'MEMBER_ASSIGNED_TO_LEADER' : 'MEMBER_UNASSIGNED_FROM_LEADER',
+    entityType: 'Member',
+    entityId: member.id,
+    summary: assignedLeader
+      ? `Assigned member ${member.fullName} to leader ${assignedLeader.fullName}`
+      : `Removed leader assignment for ${member.fullName}`,
+    metadata: {
+      leaderUserId: assignedLeader?.id || null,
+      leaderEmail: assignedLeader?.email || null,
+      previousLeaderUserId: existing.assignedLeaderUserId
     }
   });
 
