@@ -13,6 +13,7 @@ import {
   FilePlus2,
   House,
   ImagePlus,
+  Menu,
   Mail,
   MapPin,
   NotebookPen,
@@ -127,6 +128,10 @@ const basontaCategories = [
 
 const STATUS_CHART_COLORS = ['#f97316', '#0f172a', '#16a34a', '#dc2626', '#7c3aed', '#2563eb'];
 const FUNNEL_CHART_COLORS = ['#f97316', '#fb923c', '#facc15', '#22c55e', '#0ea5e9', '#8b5cf6'];
+const NAV_TABS = [
+  ['home', 'Home'],
+  ['dashboard', 'Dashboard']
+];
 
 function isAdminRole(role) {
   return ['SUPER_ADMIN', 'ADMIN'].includes(role);
@@ -628,7 +633,8 @@ function MemberDrawer({
 }
 
 export default function App() {
-  const [tab, setTab] = useState('dashboard');
+  const [tab, setTab] = useState('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authReady, setAuthReady] = useState(false);
   const [authBusy, setAuthBusy] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
@@ -830,6 +836,42 @@ export default function App() {
   }, [authReady, currentUser]);
 
   useEffect(() => {
+    if (!authReady || !currentUser) return;
+
+    const allowedTabs = new Set([
+      'home',
+      'dashboard',
+      'account',
+      'people',
+      'my-members',
+      'leaders',
+      'households',
+      'attendance',
+      'visitors',
+      'add-member',
+      'users'
+    ]);
+
+    const syncTabFromLocation = () => {
+      const hashValue = window.location.hash.replace(/^#/, '');
+      const nextTab = hashValue || 'home';
+      if (allowedTabs.has(nextTab)) {
+        setTab(nextTab);
+      } else if (!window.location.hash) {
+        window.history.replaceState({ tab: 'home' }, '', '#home');
+        setTab('home');
+      }
+    };
+
+    syncTabFromLocation();
+    window.addEventListener('popstate', syncTabFromLocation);
+
+    return () => {
+      window.removeEventListener('popstate', syncTabFromLocation);
+    };
+  }, [authReady, currentUser]);
+
+  useEffect(() => {
     if (!users.length) {
       setSelectedUserId('');
       return;
@@ -844,6 +886,108 @@ export default function App() {
   const canResetAttendanceAccess = canResetAttendance(currentUser?.role);
   const canManageGuestsAccess = canManageGuests(currentUser?.role);
   const canShepherdMembersAccess = canShepherdMembers(currentUser?.role);
+  const homeQuickActions = [
+    {
+      key: 'home',
+      label: 'Home',
+      icon: Church,
+      detail: 'Start here',
+      description: 'Return to the ministry home screen.',
+      onClick: () => navigateToTab('home')
+    },
+    {
+      key: 'dashboard',
+      label: 'Dashboard',
+      icon: TrendingUp,
+      detail: 'View analytics',
+      description: 'Open charts, attendance trends, and ministry health insights.',
+      onClick: () => navigateToTab('dashboard')
+    },
+    {
+      key: 'people',
+      label: 'People',
+      icon: Users,
+      detail: 'Member records',
+      description: 'Search profiles, contact details, and shepherd assignments.',
+      onClick: () => navigateToTab('people')
+    },
+    {
+      key: 'leaders',
+      label: 'Leaders',
+      icon: UserRound,
+      detail: 'Leadership view',
+      description: 'Review leaders, fellowships, and ministry responsibility.',
+      onClick: () => navigateToTab('leaders')
+    },
+    {
+      key: 'households',
+      label: 'Households',
+      icon: House,
+      detail: 'Family groups',
+      description: 'Browse grouped households and household-level records.',
+      onClick: () => navigateToTab('households')
+    },
+    {
+      key: 'attendance',
+      label: 'Attendance',
+      icon: CalendarDays,
+      detail: 'Service check-in',
+      description: 'Open sessions, mark attendance, and review missed weeks.',
+      onClick: () => navigateToTab('attendance')
+    },
+    {
+      key: 'visitors',
+      label: 'Visitors',
+      icon: Church,
+      detail: 'Guest follow-up',
+      description: 'Track guests, assign follow-up, and record next steps.',
+      onClick: () => navigateToTab('visitors')
+    },
+    ...(canShepherdMembersAccess ? [{
+      key: 'my-members',
+      label: 'My Members',
+      icon: UserSearch,
+      detail: 'Assigned flock',
+      description: 'See the people assigned to your care and act quickly.',
+      onClick: () => navigateToTab('my-members')
+    }] : []),
+    ...(canManagePeopleAccess ? [{
+      key: 'add-member',
+      label: 'Add Member',
+      icon: UserPlus,
+      detail: 'Create record',
+      description: 'Register a new member profile and save contact details.',
+      onClick: () => navigateToTab('add-member')
+    }] : []),
+    ...(isAdminRole(currentUser?.role) ? [{
+      key: 'users',
+      label: 'Users',
+      icon: Users,
+      detail: 'Manage access',
+      description: 'Create users, assign roles, and control sign-in access.',
+      onClick: () => navigateToTab('users')
+    }] : []),
+    {
+      key: 'refresh',
+      label: 'Refresh',
+      icon: RefreshCcw,
+      detail: 'Sync now',
+      description: 'Reload dashboard, people, attendance, and visitor data.',
+      onClick: () => loadData(selectedSessionId)
+    }
+  ];
+
+  function navigateToTab(nextTab, options = {}) {
+    const { replace = false } = options;
+    const hash = `#${nextTab}`;
+    setTab(nextTab);
+    setMobileMenuOpen(false);
+    if (replace) {
+      window.history.replaceState({ tab: nextTab }, '', hash);
+    } else if (window.location.hash !== hash) {
+      window.history.pushState({ tab: nextTab }, '', hash);
+    }
+  }
 
   async function refreshSelectedMember(memberId) {
     if (!memberId) return;
@@ -866,7 +1010,7 @@ export default function App() {
       setSuccess('Member created.');
       setForm(initialForm);
       await loadData();
-      setTab('people');
+      navigateToTab('people');
     } catch (err) {
       setError(err.message || 'Could not create member.');
     }
@@ -940,7 +1084,9 @@ export default function App() {
     setSelectedUserId('');
     setError('');
     setSuccess('');
-    setTab('dashboard');
+    setTab('home');
+    setMobileMenuOpen(false);
+    window.history.replaceState({}, '', window.location.pathname);
   }
 
   async function handleCreateSession(event) {
@@ -952,7 +1098,7 @@ export default function App() {
       setSessionForm(initialSessionForm);
       setSuccess('Attendance session created.');
       await loadData(created.id);
-      setTab('attendance');
+      navigateToTab('attendance');
     } catch (err) {
       setError(err.message || 'Could not create attendance session.');
     }
@@ -968,7 +1114,7 @@ export default function App() {
       setSelectedVisitorId(created.id);
       setSuccess('Visitor registered for follow-up.');
       await loadData();
-      setTab('visitors');
+      navigateToTab('visitors');
     } catch (err) {
       setError(err.message || 'Could not register visitor.');
     }
@@ -1151,7 +1297,7 @@ export default function App() {
       await api.registerUser(userForm);
       setUserForm(initialUserForm);
       await loadData();
-      setTab('users');
+      navigateToTab('users');
       setSuccess('User account created.');
     } catch (err) {
       setError(err.message || 'Could not create user account.');
@@ -1217,97 +1363,158 @@ export default function App() {
 
   return (
     <div className="page-shell">
-      <header className="hero">
-        <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
-          <div className="hero-badge">Pleasant Surprise Church International</div>
-          <div className="hero-title-row">
-            <img className="hero-logo" src={LOGO_SRC} alt="Pleasant Surprise Church International logo" />
-            <div>
-              <h1>PSCI NOTTS CMS</h1>
-              <p>Pastoral care, attendance tracking, leaders, households, and guest follow-up in one place.</p>
+      {tab === 'home' ? (
+        <header className="hero">
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+            <div className="hero-badge">Pleasant Surprise Church International</div>
+            <div className="hero-title-row">
+              <img className="hero-logo" src={LOGO_SRC} alt="Pleasant Surprise Church International logo" />
+              <div className="hero-title-content">
+                <h1>PSCI NOTTS CMS</h1>
+                <p>Pastoral care, attendance tracking, leaders, households, and guest follow-up in one place.</p>
+              </div>
+              <div className="hero-account-panel">
+                <button className="hero-top-btn" type="button" onClick={() => navigateToTab('account')}>
+                  <UserRound size={15} />
+                  <span>{currentUser.fullName}</span>
+                </button>
+                <button className="hero-top-btn hero-top-btn-outline" type="button" onClick={handleLogout}>
+                  Sign out
+                </button>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        <div className="hero-side">
-          <div className="hero-side-card">
-            <div className="hero-side-label">Signed in</div>
-            <div className="hero-side-value hero-side-user">{currentUser.fullName}</div>
-            <div className="table-muted hero-side-meta">{currentUser.role}</div>
-          </div>
-          <div className="hero-side-card">
-            <div className="hero-side-label">Follow-up today</div>
-            <div className="hero-side-value">{dashboard?.membersMissingTwoWeeksCount ?? 0}</div>
-            <div className="table-muted hero-side-meta">People who may need a call or visit</div>
-          </div>
-          <div className="hero-side-card hero-side-actions">
-            <div className="hero-side-label">Quick actions</div>
-            <div className="hero-action-grid">
-              <button className="hero-action-btn" type="button" onClick={() => setTab('people')}>
-                <Users size={16} /> People <ArrowRight size={14} />
-              </button>
-              <button className="hero-action-btn" type="button" onClick={() => setTab('attendance')}>
-                <CalendarDays size={16} /> Attendance <ArrowRight size={14} />
-              </button>
-              <button className="hero-action-btn" type="button" onClick={() => setTab('visitors')}>
-                <Church size={16} /> Visitors <ArrowRight size={14} />
-              </button>
-              <button className="hero-action-btn" type="button" onClick={() => setTab('leaders')}>
-                <UserRound size={16} /> Leaders <ArrowRight size={14} />
-              </button>
+          <div className="hero-side">
+            <div className="hero-side-card">
+              <div className="hero-side-label">Signed in</div>
+              <div className="hero-side-value hero-side-user">{currentUser.fullName}</div>
+              <div className="table-muted hero-side-meta">{currentUser.role}</div>
+            </div>
+            <div className="hero-side-card">
+              <div className="hero-side-label">Follow-up today</div>
+              <div className="hero-side-value">{dashboard?.membersMissingTwoWeeksCount ?? 0}</div>
+              <div className="table-muted hero-side-meta">People who may need a call or visit</div>
             </div>
           </div>
-          <div className="hero-side-card hero-side-actions">
-            <div className="hero-side-label">Account</div>
-            <button className="ghost-btn" type="button" onClick={handleLogout}>Sign out</button>
+        </header>
+      ) : (
+        <header className="app-topbar">
+          <div className="app-topbar-brand">
+            <img className="app-topbar-logo" src={LOGO_SRC} alt="Pleasant Surprise Church International logo" />
+            <div>
+              <div className="hero-badge app-topbar-badge">Pleasant Surprise Church International</div>
+              <h1>PSCI NOTTS CMS</h1>
+            </div>
+          </div>
+          <div className="hero-account-panel">
+            <button className="hero-top-btn app-topbar-btn" type="button" onClick={() => navigateToTab('account')}>
+              <UserRound size={15} />
+              <span>{currentUser.fullName}</span>
+            </button>
+            <button className="hero-top-btn hero-top-btn-outline app-topbar-btn" type="button" onClick={handleLogout}>
+              Sign out
+            </button>
+          </div>
+        </header>
+      )}
+
+      <div className="mobile-nav-bar">
+        <button className="mobile-nav-trigger" type="button" onClick={() => setMobileMenuOpen((current) => !current)}>
+          <Menu size={18} />
+          <span>Menu</span>
+        </button>
+        <button className="mobile-nav-trigger mobile-nav-trigger-secondary" type="button" onClick={() => navigateToTab('home')}>
+          <Church size={18} />
+          <span>Home</span>
+        </button>
+      </div>
+
+      {mobileMenuOpen ? (
+        <div className="mobile-nav-drawer">
+          <div className="mobile-nav-drawer-card">
+            <div className="mobile-nav-header">
+              <div>
+                <div className="table-name">Navigate</div>
+                <div className="table-muted">Choose a section to open</div>
+              </div>
+              <button className="ghost-btn" type="button" onClick={() => setMobileMenuOpen(false)}>Close</button>
+            </div>
+            <div className="mobile-nav-links">
+              {[
+                ...NAV_TABS,
+                ['account', 'Account']
+              ].map(([value, label]) => (
+                <button
+                  key={value}
+                  className={tab === value ? 'mobile-nav-link active' : 'mobile-nav-link'}
+                  onClick={() => navigateToTab(value)}
+                  type="button"
+                >
+                  <span>{label}</span>
+                  <ArrowRight size={16} />
+                </button>
+              ))}
+              <button className="mobile-nav-link" onClick={handleLogout} type="button">
+                <span>Sign out</span>
+                <ArrowRight size={16} />
+              </button>
+            </div>
           </div>
         </div>
-      </header>
+      ) : null}
 
       <nav className="tabs">
-        {[
-          ['dashboard', 'Dashboard'],
-          ['account', 'Account'],
-          ['people', 'People'],
-          ...(canShepherdMembersAccess ? [['my-members', 'My Members']] : []),
-          ['leaders', 'Leaders'],
-          ['households', 'Households'],
-          ['attendance', 'Attendance'],
-          ['visitors', 'Visitors'],
-          ...(canManagePeopleAccess ? [['add-member', 'Add Member']] : []),
-          ...(isAdminRole(currentUser.role) ? [['users', 'Users']] : [])
-        ].map(([value, label]) => (
+        {NAV_TABS.map(([value, label]) => (
           <button
             key={value}
             className={tab === value ? 'tab active' : 'tab'}
-            onClick={() => setTab(value)}
+            onClick={() => navigateToTab(value)}
             type="button"
           >
             {label}
           </button>
         ))}
-        <button className="tab refresh" onClick={() => loadData(selectedSessionId)} type="button">
-          <RefreshCcw size={16} />
-          Refresh
-        </button>
       </nav>
 
       {error ? <div className="alert error">{error}</div> : null}
       {success ? <div className="alert success">{success}</div> : null}
 
+      {tab === 'home' ? (
+        <div className="stack">
+          <SectionCard title="Quick actions" subtitle="Open every major area of the system from one place.">
+            <div className="quick-actions-grid quick-actions-grid-home">
+              {homeQuickActions.map((action) => {
+                const Icon = action.icon;
+                return (
+                  <button key={action.key} className="quick-action-card" type="button" onClick={action.onClick}>
+                    <div className="quick-action-head">
+                      <Icon size={18} />
+                      <span>{action.label}</span>
+                    </div>
+                    <strong>{action.detail}</strong>
+                    <p>{action.description}</p>
+                  </button>
+                );
+              })}
+            </div>
+          </SectionCard>
+        </div>
+      ) : null}
+
       {tab === 'dashboard' ? (
         <div className="stack">
           <div className="stats-grid">
-            <StatCard label="Members" value={dashboard?.totalMembers ?? '--'} icon={Users} note="Church family records" onClick={() => setTab('people')} />
-            <StatCard label="Households" value={dashboard?.totalHouseholds ?? '--'} icon={House} note="Grouped by address" onClick={() => setTab('households')} />
+            <StatCard label="Members" value={dashboard?.totalMembers ?? '--'} icon={Users} note="Church family records" onClick={() => navigateToTab('people')} />
+            <StatCard label="Households" value={dashboard?.totalHouseholds ?? '--'} icon={House} note="Grouped by address" onClick={() => navigateToTab('households')} />
             {dashboard?.canViewGiving ? (
               <StatCard label="This Month Giving" value={dashboard?.givingThisMonthFormatted ?? '£0.00'} icon={CircleDollarSign} note="From giving records" />
             ) : null}
-            <StatCard label="Latest Attendance" value={dashboard?.latestAttendanceCount ?? 0} icon={CalendarDays} note={dashboard?.latestAttendanceTitle || 'Most recent session'} onClick={() => setTab('attendance')} />
+            <StatCard label="Latest Attendance" value={dashboard?.latestAttendanceCount ?? 0} icon={CalendarDays} note={dashboard?.latestAttendanceTitle || 'Most recent session'} onClick={() => navigateToTab('attendance')} />
           </div>
 
           <div className="quick-actions-grid">
-            <button className="quick-action-card" type="button" onClick={() => setTab('people')}>
+            <button className="quick-action-card" type="button" onClick={() => navigateToTab('people')}>
               <div className="quick-action-head">
                 <Users size={18} />
                 <span>People directory</span>
@@ -1315,7 +1522,7 @@ export default function App() {
               <strong>{formatCompactNumber(dashboard?.totalMembers ?? 0)}</strong>
               <p>Open member records, profiles, and shepherd assignments.</p>
             </button>
-            <button className="quick-action-card" type="button" onClick={() => setTab('visitors')}>
+            <button className="quick-action-card" type="button" onClick={() => navigateToTab('visitors')}>
               <div className="quick-action-head">
                 <Church size={18} />
                 <span>Guest follow-up</span>
@@ -1323,7 +1530,7 @@ export default function App() {
               <strong>{formatCompactNumber(dashboard?.guestFollowUpPendingCount ?? 0)}</strong>
               <p>See new visitors, track follow-up, and close the loop quickly.</p>
             </button>
-            <button className="quick-action-card" type="button" onClick={() => setTab('attendance')}>
+            <button className="quick-action-card" type="button" onClick={() => navigateToTab('attendance')}>
               <div className="quick-action-head">
                 <CalendarDays size={18} />
                 <span>Attendance room</span>
@@ -1331,7 +1538,7 @@ export default function App() {
               <strong>{formatCompactNumber(dashboard?.attendanceSessions ?? 0)}</strong>
               <p>Jump into services, mark attendance, or review missed weeks.</p>
             </button>
-            <button className="quick-action-card" type="button" onClick={() => setTab('leaders')}>
+            <button className="quick-action-card" type="button" onClick={() => navigateToTab('leaders')}>
               <div className="quick-action-head">
                 <UserRound size={18} />
                 <span>Leadership view</span>
@@ -1342,10 +1549,10 @@ export default function App() {
           </div>
 
           <div className="stats-grid stats-grid-secondary">
-            <StatCard label="Visitors This Week" value={dashboard?.firstTimeVisitorsThisWeek ?? 0} icon={Sparkles} note="First-time guests this week" onClick={() => setTab('visitors')} />
-            <StatCard label="New Members This Month" value={dashboard?.newMembersThisMonth ?? 0} icon={BadgePlus} note="Based on join date" onClick={() => setTab('people')} />
-            <StatCard label="Unassigned Members" value={dashboard?.unassignedMembersCount ?? 0} icon={UserSearch} note="People still needing a shepherd" onClick={() => setTab('people')} />
-            <StatCard label="Missing Contact Info" value={dashboard?.membersMissingContactCount ?? 0} icon={AlertTriangle} note="No email and no phone number" onClick={() => setTab('people')} />
+            <StatCard label="Visitors This Week" value={dashboard?.firstTimeVisitorsThisWeek ?? 0} icon={Sparkles} note="First-time guests this week" onClick={() => navigateToTab('visitors')} />
+            <StatCard label="New Members This Month" value={dashboard?.newMembersThisMonth ?? 0} icon={BadgePlus} note="Based on join date" onClick={() => navigateToTab('people')} />
+            <StatCard label="Unassigned Members" value={dashboard?.unassignedMembersCount ?? 0} icon={UserSearch} note="People still needing a shepherd" onClick={() => navigateToTab('people')} />
+            <StatCard label="Missing Contact Info" value={dashboard?.membersMissingContactCount ?? 0} icon={AlertTriangle} note="No email and no phone number" onClick={() => navigateToTab('people')} />
           </div>
 
           <div className="two-col">
