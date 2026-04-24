@@ -1,8 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { BarChart, Bar, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { api } from './api';
 import {
+  ArrowRight,
+  AlertTriangle,
+  BadgePlus,
   CalendarDays,
   CheckCircle2,
   Church,
@@ -18,10 +21,14 @@ import {
   Save,
   Search,
   Sparkles,
+  TrendingUp,
   UserPlus,
+  UserSearch,
   Users,
   UserRound
 } from 'lucide-react';
+
+const LOGO_SRC = '/psci-logo.png';
 
 const initialForm = {
   fullName: '',
@@ -118,6 +125,9 @@ const basontaCategories = [
   'Usher'
 ];
 
+const STATUS_CHART_COLORS = ['#f97316', '#0f172a', '#16a34a', '#dc2626', '#7c3aed', '#2563eb'];
+const FUNNEL_CHART_COLORS = ['#f97316', '#fb923c', '#facc15', '#22c55e', '#0ea5e9', '#8b5cf6'];
+
 function isAdminRole(role) {
   return ['SUPER_ADMIN', 'ADMIN'].includes(role);
 }
@@ -157,9 +167,9 @@ function SectionCard({ title, subtitle, children, action }) {
   );
 }
 
-function StatCard({ label, value, icon: Icon, note }) {
+function StatCard({ label, value, icon: Icon, note, onClick }) {
   return (
-    <div className="stat-card">
+    <button className={onClick ? 'stat-card stat-card-button' : 'stat-card'} onClick={onClick} type="button">
       <div>
         <div className="stat-label">{label}</div>
         <div className="stat-value">{value}</div>
@@ -168,7 +178,7 @@ function StatCard({ label, value, icon: Icon, note }) {
       <div className="stat-icon">
         <Icon size={20} />
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -182,9 +192,14 @@ function AuthScreen({
   return (
     <div className="auth-shell">
       <section className="auth-card">
-        <div className="hero-badge">Church Management System</div>
-        <h1>Sign in to PSCI NOTTS CMS</h1>
-        <p>Use an account created by an administrator to access church records and ministry tools.</p>
+        <div className="auth-brand">
+          <img className="auth-logo" src={LOGO_SRC} alt="Pleasant Surprise Church International logo" />
+          <div>
+            <div className="hero-badge">Pleasant Surprise Church International</div>
+            <h1>Sign in to PSCI NOTTS CMS</h1>
+            <p>Use an account created by an administrator to access church records and ministry tools.</p>
+          </div>
+        </div>
         {error ? <div className="alert error">{error}</div> : null}
         <form className="stack-gap" onSubmit={onSubmit}>
           <label>
@@ -229,6 +244,11 @@ function formatAttendanceGap(days) {
 function formatDateForInput(value) {
   if (!value) return '';
   return new Date(value).toISOString().slice(0, 10);
+}
+
+function formatCompactNumber(value) {
+  if (value === null || value === undefined) return '--';
+  return new Intl.NumberFormat(undefined, { notation: 'compact' }).format(value);
 }
 
 function formatSessionCategory(session) {
@@ -649,6 +669,10 @@ export default function App() {
     if (!dashboard?.statusCounts) return [];
     return Object.entries(dashboard.statusCounts).map(([status, count]) => ({ status, count }));
   }, [dashboard]);
+
+  const attendanceTrendData = useMemo(() => dashboard?.attendanceTrend || [], [dashboard]);
+  const funnelData = useMemo(() => dashboard?.visitorFollowUpFunnel || [], [dashboard]);
+  const leaderCoverageData = useMemo(() => dashboard?.leaderCoverage || [], [dashboard]);
 
   const sessionRecordMap = useMemo(() => {
     const map = new Map();
@@ -1195,31 +1219,43 @@ export default function App() {
     <div className="page-shell">
       <header className="hero">
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
-          <div className="hero-badge">Church Management System</div>
+          <div className="hero-badge">Pleasant Surprise Church International</div>
           <div className="hero-title-row">
-            <div className="hero-icon">
-              <Church size={28} />
-            </div>
+            <img className="hero-logo" src={LOGO_SRC} alt="Pleasant Surprise Church International logo" />
             <div>
               <h1>PSCI NOTTS CMS</h1>
-              <p>Starter frontend connected to a real Express + PostgreSQL backend, with attendance and member profile tools.</p>
+              <p>Pastoral care, attendance tracking, leaders, households, and guest follow-up in one place.</p>
             </div>
           </div>
         </motion.div>
 
         <div className="hero-side">
           <div className="hero-side-card">
-            <div className="hero-side-label">API Status</div>
-            <div className="hero-side-value">{health?.status || 'Offline'}</div>
-          </div>
-          <div className="hero-side-card">
-            <div className="hero-side-label">Environment</div>
-            <div className="hero-side-value">{health?.environment || 'Unknown'}</div>
-          </div>
-          <div className="hero-side-card">
             <div className="hero-side-label">Signed in</div>
             <div className="hero-side-value hero-side-user">{currentUser.fullName}</div>
             <div className="table-muted hero-side-meta">{currentUser.role}</div>
+          </div>
+          <div className="hero-side-card">
+            <div className="hero-side-label">Follow-up today</div>
+            <div className="hero-side-value">{dashboard?.membersMissingTwoWeeksCount ?? 0}</div>
+            <div className="table-muted hero-side-meta">People who may need a call or visit</div>
+          </div>
+          <div className="hero-side-card hero-side-actions">
+            <div className="hero-side-label">Quick actions</div>
+            <div className="hero-action-grid">
+              <button className="hero-action-btn" type="button" onClick={() => setTab('people')}>
+                <Users size={16} /> People <ArrowRight size={14} />
+              </button>
+              <button className="hero-action-btn" type="button" onClick={() => setTab('attendance')}>
+                <CalendarDays size={16} /> Attendance <ArrowRight size={14} />
+              </button>
+              <button className="hero-action-btn" type="button" onClick={() => setTab('visitors')}>
+                <Church size={16} /> Visitors <ArrowRight size={14} />
+              </button>
+              <button className="hero-action-btn" type="button" onClick={() => setTab('leaders')}>
+                <UserRound size={16} /> Leaders <ArrowRight size={14} />
+              </button>
+            </div>
           </div>
           <div className="hero-side-card hero-side-actions">
             <div className="hero-side-label">Account</div>
@@ -1262,12 +1298,54 @@ export default function App() {
       {tab === 'dashboard' ? (
         <div className="stack">
           <div className="stats-grid">
-            <StatCard label="Members" value={dashboard?.totalMembers ?? '--'} icon={Users} note="Imported member records" />
-            <StatCard label="Households" value={dashboard?.totalHouseholds ?? '--'} icon={House} note="Grouped by address" />
+            <StatCard label="Members" value={dashboard?.totalMembers ?? '--'} icon={Users} note="Church family records" onClick={() => setTab('people')} />
+            <StatCard label="Households" value={dashboard?.totalHouseholds ?? '--'} icon={House} note="Grouped by address" onClick={() => setTab('households')} />
             {dashboard?.canViewGiving ? (
               <StatCard label="This Month Giving" value={dashboard?.givingThisMonthFormatted ?? '£0.00'} icon={CircleDollarSign} note="From giving records" />
             ) : null}
-            <StatCard label="Latest Attendance" value={dashboard?.latestAttendanceCount ?? 0} icon={CalendarDays} note={dashboard?.latestAttendanceTitle || 'Most recent session'} />
+            <StatCard label="Latest Attendance" value={dashboard?.latestAttendanceCount ?? 0} icon={CalendarDays} note={dashboard?.latestAttendanceTitle || 'Most recent session'} onClick={() => setTab('attendance')} />
+          </div>
+
+          <div className="quick-actions-grid">
+            <button className="quick-action-card" type="button" onClick={() => setTab('people')}>
+              <div className="quick-action-head">
+                <Users size={18} />
+                <span>People directory</span>
+              </div>
+              <strong>{formatCompactNumber(dashboard?.totalMembers ?? 0)}</strong>
+              <p>Open member records, profiles, and shepherd assignments.</p>
+            </button>
+            <button className="quick-action-card" type="button" onClick={() => setTab('visitors')}>
+              <div className="quick-action-head">
+                <Church size={18} />
+                <span>Guest follow-up</span>
+              </div>
+              <strong>{formatCompactNumber(dashboard?.guestFollowUpPendingCount ?? 0)}</strong>
+              <p>See new visitors, track follow-up, and close the loop quickly.</p>
+            </button>
+            <button className="quick-action-card" type="button" onClick={() => setTab('attendance')}>
+              <div className="quick-action-head">
+                <CalendarDays size={18} />
+                <span>Attendance room</span>
+              </div>
+              <strong>{formatCompactNumber(dashboard?.attendanceSessions ?? 0)}</strong>
+              <p>Jump into services, mark attendance, or review missed weeks.</p>
+            </button>
+            <button className="quick-action-card" type="button" onClick={() => setTab('leaders')}>
+              <div className="quick-action-head">
+                <UserRound size={18} />
+                <span>Leadership view</span>
+              </div>
+              <strong>{formatCompactNumber(leaders.length)}</strong>
+              <p>Browse leaders, fellowships, and ministry coverage at a glance.</p>
+            </button>
+          </div>
+
+          <div className="stats-grid stats-grid-secondary">
+            <StatCard label="Visitors This Week" value={dashboard?.firstTimeVisitorsThisWeek ?? 0} icon={Sparkles} note="First-time guests this week" onClick={() => setTab('visitors')} />
+            <StatCard label="New Members This Month" value={dashboard?.newMembersThisMonth ?? 0} icon={BadgePlus} note="Based on join date" onClick={() => setTab('people')} />
+            <StatCard label="Unassigned Members" value={dashboard?.unassignedMembersCount ?? 0} icon={UserSearch} note="People still needing a shepherd" onClick={() => setTab('people')} />
+            <StatCard label="Missing Contact Info" value={dashboard?.membersMissingContactCount ?? 0} icon={AlertTriangle} note="No email and no phone number" onClick={() => setTab('people')} />
           </div>
 
           <div className="two-col">
@@ -1279,7 +1357,11 @@ export default function App() {
                     <XAxis dataKey="status" />
                     <YAxis allowDecimals={false} />
                     <Tooltip />
-                    <Bar dataKey="count" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="count" radius={[8, 8, 0, 0]}>
+                      {chartData.map((entry, index) => (
+                        <Cell key={entry.status} fill={STATUS_CHART_COLORS[index % STATUS_CHART_COLORS.length]} />
+                      ))}
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -1293,7 +1375,55 @@ export default function App() {
                 <li><span>Archived</span><strong>{dashboard?.statusCounts?.ARCHIVED ?? 0}</strong></li>
                 <li><span>Attendance sessions</span><strong>{dashboard?.attendanceSessions ?? 0}</strong></li>
                 <li><span>Guests needing follow-up</span><strong>{dashboard?.guestFollowUpPendingCount ?? 0}</strong></li>
+                <li><span>Visitors this month</span><strong>{dashboard?.firstTimeVisitorsThisMonth ?? 0}</strong></li>
+                <li><span>Members missing household info</span><strong>{dashboard?.membersMissingHouseholdCount ?? 0}</strong></li>
               </ul>
+            </SectionCard>
+          </div>
+
+          <div className="two-col">
+            <SectionCard
+              title="Attendance Trend"
+              subtitle={dashboard?.previousAttendanceTitle ? `${dashboard.latestAttendanceTitle} vs ${dashboard.previousAttendanceTitle}` : 'Latest attendance movement across recent sessions'}
+              action={
+                <div className="section-chip">
+                  <TrendingUp size={16} />
+                  {dashboard?.attendanceDelta > 0 ? `+${dashboard.attendanceDelta}` : dashboard?.attendanceDelta ?? 0} vs previous
+                </div>
+              }
+            >
+              <div className="chart-wrap">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={attendanceTrendData}>
+                    <defs>
+                      <linearGradient id="attendanceFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#f97316" stopOpacity={0.85} />
+                        <stop offset="95%" stopColor="#f97316" stopOpacity={0.08} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                    <XAxis dataKey="label" />
+                    <YAxis allowDecimals={false} />
+                    <Tooltip />
+                    <Area type="monotone" dataKey="attendedCount" stroke="#f97316" fill="url(#attendanceFill)" strokeWidth={3} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </SectionCard>
+
+            <SectionCard title="Visitor Follow-up Funnel" subtitle="See where guests currently sit in the follow-up journey">
+              <div className="chart-wrap">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={funnelData} dataKey="count" nameKey="status" innerRadius={56} outerRadius={94} paddingAngle={3}>
+                      {funnelData.map((entry, index) => (
+                        <Cell key={entry.status} fill={FUNNEL_CHART_COLORS[index % FUNNEL_CHART_COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </SectionCard>
           </div>
 
@@ -1344,6 +1474,39 @@ export default function App() {
               </div>
             </SectionCard>
           </div>
+
+          <div className="two-col">
+            <SectionCard
+              title="Leader Coverage"
+              subtitle="How many members are currently assigned to each shepherd"
+              action={<div className="section-chip"><Users size={16} /> {leaderCoverageData.length} leaders tracked</div>}
+            >
+              <div className="mini-table">
+                {leaderCoverageData.length ? leaderCoverageData.map((leader, index) => (
+                  <div key={leader.id} className="note-row">
+                    <div className="mini-row">
+                      <span>{leader.role.replaceAll('_', ' ')}</span>
+                      <strong>{leader.memberCount} assigned</strong>
+                    </div>
+                    <div className="table-name">{leader.fullName}</div>
+                    <div className="leader-bar">
+                      <span className="leader-bar-fill" style={{ width: `${Math.max((leader.memberCount / Math.max(...leaderCoverageData.map((item) => item.memberCount), 1)) * 100, 8)}%`, background: STATUS_CHART_COLORS[index % STATUS_CHART_COLORS.length] }} />
+                    </div>
+                  </div>
+                )) : <div className="empty-panel">No shepherd assignments yet.</div>}
+              </div>
+            </SectionCard>
+
+            <SectionCard title="Care and Data Alerts" subtitle="Operational items that need admin or pastoral attention">
+              <ul className="summary-list">
+                <li><span>Guests needing follow-up</span><strong>{dashboard?.guestFollowUpPendingCount ?? 0}</strong></li>
+                <li><span>Unassigned members</span><strong>{dashboard?.unassignedMembersCount ?? 0}</strong></li>
+                <li><span>Missing contact info</span><strong>{dashboard?.membersMissingContactCount ?? 0}</strong></li>
+                <li><span>Missing household info</span><strong>{dashboard?.membersMissingHouseholdCount ?? 0}</strong></li>
+                <li><span>Attendance gap follow-up</span><strong>{dashboard?.membersMissingTwoWeeksCount ?? 0}</strong></li>
+              </ul>
+            </SectionCard>
+          </div>
         </div>
       ) : null}
 
@@ -1370,7 +1533,7 @@ export default function App() {
             }
           >
             <div className="table-shell">
-              <table>
+              <table className="mobile-cards-table">
                 <thead>
                   <tr>
                     <th>Member</th>
@@ -1384,7 +1547,7 @@ export default function App() {
                 <tbody>
                   {membersPayload.data.map((member) => (
                     <tr key={member.id}>
-                      <td>
+                      <td data-label="Member">
                         <button className="table-link" type="button" onClick={() => openMember(member.id)}>
                           {member.fullName}
                         </button>
@@ -1393,16 +1556,16 @@ export default function App() {
                         </div>
                         {member.assignedLeader?.fullName ? <div className="table-muted">Shepherd: {member.assignedLeader.fullName}</div> : null}
                       </td>
-                      <td>{member.externalMemberId || '—'}</td>
-                      <td>{member.membershipStatus}</td>
-                      <td>{member.dateOfBirth ? member.dateOfBirth.slice(0, 10) : '—'}</td>
-                      <td>
+                      <td data-label="Member ID">{member.externalMemberId || '—'}</td>
+                      <td data-label="Status">{member.membershipStatus}</td>
+                      <td data-label="DOB">{member.dateOfBirth ? member.dateOfBirth.slice(0, 10) : '—'}</td>
+                      <td data-label="Contact">
                         <div className="table-stack">
                           <span><Mail size={14} /> {member.email || '—'}</span>
                           <span><Phone size={14} /> {member.phoneNumber || '—'}</span>
                         </div>
                       </td>
-                      <td>
+                      <td data-label="Address">
                         <div className="table-stack">
                           <span><MapPin size={14} /> {member.addressFull || member.household?.addressFull || '—'}</span>
                           <span className="table-muted">{member.postcode || member.household?.postcode || ''}</span>
@@ -1431,7 +1594,7 @@ export default function App() {
               action={<div className="section-chip"><Users size={16} /> {myMembers.length} assigned</div>}
             >
               <div className="table-shell">
-                <table>
+                <table className="mobile-cards-table">
                   <thead>
                     <tr>
                       <th>Member</th>
@@ -1443,25 +1606,25 @@ export default function App() {
                   <tbody>
                     {myMembers.map((member) => (
                       <tr key={member.id}>
-                        <td>
+                        <td data-label="Member">
                           <button className="table-link" type="button" onClick={() => openMember(member.id)}>
                             {member.fullName}
                           </button>
                           <div className="table-muted">{member.membershipStatus}</div>
                         </td>
-                        <td>
+                        <td data-label="Fellowship">
                           <div className="table-stack">
                             <span>{member.fellowshipType || '—'}</span>
                             <span className="table-muted">{member.fellowshipName || member.basontaCategory || ''}</span>
                           </div>
                         </td>
-                        <td>
+                        <td data-label="Contact">
                           <div className="table-stack">
                             <span><Mail size={14} /> {member.email || '—'}</span>
                             <span><Phone size={14} /> {member.phoneNumber || '—'}</span>
                           </div>
                         </td>
-                        <td>{member._count?.attendanceRecords ?? 0} records</td>
+                        <td data-label="Attendance">{member._count?.attendanceRecords ?? 0} records</td>
                       </tr>
                     ))}
                     {!myMembers.length && !loading ? (
@@ -1499,7 +1662,7 @@ export default function App() {
           >
             {selectedSession ? (
               <div className="table-shell attendance-table">
-                <table>
+                <table className="mobile-cards-table">
                   <thead>
                     <tr>
                       <th>Member</th>
@@ -1512,12 +1675,12 @@ export default function App() {
                       const record = sessionRecordMap.get(member.id);
                       return (
                         <tr key={member.id}>
-                          <td>
+                          <td data-label="Member">
                             <div className="table-name">{member.fullName}</div>
                             <div className="table-muted">{member.fellowshipName || member.basontaCategory || member.fellowshipType || 'Assigned member'}</div>
                           </td>
-                          <td><span className={`pill status-${(record?.status || 'UNMARKED').toLowerCase()}`}>{record?.status || 'UNMARKED'}</span></td>
-                          <td>
+                          <td data-label="Current status"><span className={`pill status-${(record?.status || 'UNMARKED').toLowerCase()}`}>{record?.status || 'UNMARKED'}</span></td>
+                          <td data-label="Quick mark">
                             <div className="action-row">
                               {['PRESENT', 'LATE', 'ABSENT', 'VISITOR'].map((status) => (
                                 <button key={status} type="button" className={record?.status === status ? 'mini-btn active' : 'mini-btn'} onClick={() => markAttendance(member.id, status)}>
@@ -1549,7 +1712,7 @@ export default function App() {
           action={<div className="section-chip"><Users size={16} /> {leaders.length} leaders</div>}
         >
           <div className="table-shell">
-            <table>
+            <table className="mobile-cards-table">
               <thead>
                 <tr>
                   <th>Leader</th>
@@ -1562,21 +1725,21 @@ export default function App() {
               <tbody>
                 {leaders.map((leader) => (
                   <tr key={leader.id}>
-                    <td>
+                    <td data-label="Leader">
                       <button className="table-link" type="button" onClick={() => openMember(leader.id)}>
                         {leader.fullName}
                       </button>
                       <div className="table-muted">{leader.membershipStatus}</div>
                     </td>
-                    <td>{leader.leadershipRole || 'Leader'}</td>
-                    <td>
+                    <td data-label="Assigned role">{leader.leadershipRole || 'Leader'}</td>
+                    <td data-label="Fellowship">
                       <div className="table-stack">
                         <span>{leader.fellowshipType || '—'}</span>
                         <span className="table-muted">{leader.fellowshipName || ''}</span>
                       </div>
                     </td>
-                    <td>{leader.basontaCategory || '—'}</td>
-                    <td>
+                    <td data-label="Basonta category">{leader.basontaCategory || '—'}</td>
+                    <td data-label="Contact">
                       <div className="table-stack">
                         <span><Mail size={14} /> {leader.email || '—'}</span>
                         <span><Phone size={14} /> {leader.phoneNumber || '—'}</span>
@@ -1654,7 +1817,7 @@ export default function App() {
       {tab === 'households' ? (
         <SectionCard title="Households" subtitle="Grouped by shared address from your import files">
           <div className="table-shell">
-            <table>
+            <table className="mobile-cards-table">
               <thead>
                 <tr>
                   <th>Household</th>
@@ -1667,11 +1830,11 @@ export default function App() {
               <tbody>
                 {households.map((household) => (
                   <tr key={household.id}>
-                    <td>{household.householdName || 'Unnamed Household'}</td>
-                    <td>{household.externalHouseholdId}</td>
-                    <td>{household.addressFull || '—'}</td>
-                    <td>{household.postcode || '—'}</td>
-                    <td>{household._count?.members ?? 0}</td>
+                    <td data-label="Household">{household.householdName || 'Unnamed Household'}</td>
+                    <td data-label="External Code">{household.externalHouseholdId}</td>
+                    <td data-label="Address">{household.addressFull || '—'}</td>
+                    <td data-label="Postcode">{household.postcode || '—'}</td>
+                    <td data-label="Members">{household._count?.members ?? 0}</td>
                   </tr>
                 ))}
                 {!households.length && !loading ? (
@@ -1771,7 +1934,7 @@ export default function App() {
                   </div>
                 </div>
                 <div className="table-shell attendance-table">
-                  <table>
+                  <table className="mobile-cards-table">
                     <thead>
                       <tr>
                         <th>Member</th>
@@ -1785,13 +1948,13 @@ export default function App() {
                         const record = sessionRecordMap.get(member.id);
                         return (
                           <tr key={member.id}>
-                            <td>
+                            <td data-label="Member">
                               <div className="table-name">{member.fullName}</div>
                               <div className="table-muted">{member.membershipStatus}</div>
                             </td>
-                            <td>{member.externalMemberId || '—'}</td>
-                            <td><span className={`pill status-${(record?.status || 'UNMARKED').toLowerCase()}`}>{record?.status || 'UNMARKED'}</span></td>
-                            <td>
+                            <td data-label="Member ID">{member.externalMemberId || '—'}</td>
+                            <td data-label="Current status"><span className={`pill status-${(record?.status || 'UNMARKED').toLowerCase()}`}>{record?.status || 'UNMARKED'}</span></td>
+                            <td data-label="Quick mark">
                               <div className="action-row">
                                 {canManageAttendanceAccess ? ['PRESENT', 'LATE', 'ABSENT', 'VISITOR'].map((status) => (
                                   <button key={status} type="button" className={record?.status === status ? 'mini-btn active' : 'mini-btn'} onClick={() => markAttendance(member.id, status)}>

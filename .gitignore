@@ -9,3 +9,5 @@ coverage
 .DS_Store
 backend/prisma/dev.db
 backend/prisma/dev.db-journal
+church_cms_local_dump.sql
+church_cms_full_dump.sql

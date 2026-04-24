@@ -7,27 +7,49 @@ function formatCurrencyGBP(value) {
   }).format(Number(value || 0));
 }
 
+function startOfWeek(date = new Date()) {
+  const value = new Date(date);
+  const day = value.getDay();
+  const diff = value.getDate() - day + (day === 0 ? -6 : 1);
+  value.setDate(diff);
+  value.setHours(0, 0, 0, 0);
+  return value;
+}
+
+function startOfMonth(date = new Date()) {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
 export async function dashboardReport(req, res) {
+  const now = new Date();
+  const thisWeekStart = startOfWeek(now);
+  const thisMonthStart = startOfMonth(now);
   const twoWeeksAgo = new Date();
   twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
   const canViewGiving = req.user?.role === 'PASTOR';
 
-  const [totalMembers, totalHouseholds, groupedStatuses, latestSession, currentMonthGiving, attendanceSessions, members, attendanceHistory] = await Promise.all([
+  const [
+    totalMembers,
+    totalHouseholds,
+    groupedStatuses,
+    currentMonthGiving,
+    attendanceSessions,
+    members,
+    attendanceHistory,
+    recentSessions,
+    leaderWorkloads
+  ] = await Promise.all([
     prisma.member.count(),
     prisma.household.count(),
     prisma.member.groupBy({
       by: ['membershipStatus'],
       _count: { membershipStatus: true }
     }),
-    prisma.attendanceSession.findFirst({
-      orderBy: { serviceDate: 'desc' },
-      select: { id: true, serviceDate: true, title: true }
-    }),
     prisma.givingRecord.aggregate({
       _sum: { amount: true },
       where: {
         donatedAt: {
-          gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+          gte: thisMonthStart
         }
       }
     }),
@@ -45,6 +67,9 @@ export async function dashboardReport(req, res) {
         phoneNumber: true,
         membershipStatus: true,
         joinDate: true,
+        addressFull: true,
+        householdId: true,
+        assignedLeaderUserId: true,
         needsReview: true,
         dataQualityNotes: true,
         visitorFollowUpStatus: true,
@@ -61,6 +86,49 @@ export async function dashboardReport(req, res) {
       _max: {
         attendedOn: true
       }
+    }),
+    prisma.attendanceSession.findMany({
+      orderBy: { serviceDate: 'desc' },
+      take: 8,
+      select: {
+        id: true,
+        serviceDate: true,
+        title: true,
+        category: true,
+        customCategory: true,
+        records: {
+          where: {
+            status: {
+              in: ['PRESENT', 'LATE', 'VISITOR']
+            }
+          },
+          select: {
+            id: true,
+            status: true
+          }
+        }
+      }
+    }),
+    prisma.user.findMany({
+      where: {
+        isActive: true,
+        role: {
+          in: ['SUPER_ADMIN', 'ADMIN', 'PASTOR', 'MINISTRY_LEADER']
+        }
+      },
+      orderBy: {
+        fullName: 'asc'
+      },
+      select: {
+        id: true,
+        fullName: true,
+        role: true,
+        _count: {
+          select: {
+            shepherdMembers: true
+          }
+        }
+      }
     })
   ]);
 
@@ -75,15 +143,10 @@ export async function dashboardReport(req, res) {
     statusCounts[row.membershipStatus] = row._count.membershipStatus;
   });
 
-  let latestAttendanceCount = 0;
-  if (latestSession?.id) {
-    latestAttendanceCount = await prisma.attendanceRecord.count({
-      where: {
-        sessionId: latestSession.id,
-        status: { in: ['PRESENT', 'LATE', 'VISITOR'] }
-      }
-    });
-  }
+  const latestSession = recentSessions[0] || null;
+  const previousSession = recentSessions[1] || null;
+  const latestAttendanceCount = latestSession?.records?.length || 0;
+  const previousAttendanceCount = previousSession?.records?.length || 0;
 
   const lastAttendanceByMember = new Map(
     attendanceHistory.map((row) => [row.memberId, row._max.attendedOn || null])
@@ -114,10 +177,55 @@ export async function dashboardReport(req, res) {
       return new Date(a.lastAttendedAt) - new Date(b.lastAttendedAt);
     });
 
-  const guestFollowUpPendingCount = members.filter((member) => {
+  const guestFollowUpPending = members.filter((member) => {
     if (!member.visitorFollowUpStatus) return false;
     return !['JOINED', 'CLOSED'].includes(member.visitorFollowUpStatus);
-  }).length;
+  });
+
+  const firstTimeVisitorsThisWeek = members.filter((member) => (
+    member.visitorFirstServiceDate && new Date(member.visitorFirstServiceDate) >= thisWeekStart
+  )).length;
+
+  const firstTimeVisitorsThisMonth = members.filter((member) => (
+    member.visitorFirstServiceDate && new Date(member.visitorFirstServiceDate) >= thisMonthStart
+  )).length;
+
+  const newMembersThisMonth = members.filter((member) => (
+    member.joinDate && new Date(member.joinDate) >= thisMonthStart
+  )).length;
+
+  const membersMissingContactCount = members.filter((member) => !member.phoneNumber && !member.email).length;
+  const membersMissingHouseholdCount = members.filter((member) => !member.householdId && !member.addressFull).length;
+  const unassignedMembersCount = members.filter((member) => (
+    member.membershipStatus !== 'ARCHIVED'
+    && !member.assignedLeaderUserId
+    && !member.dataQualityNotes?.startsWith('Visitor registration')
+  )).length;
+
+  const visitorFollowUpFunnel = ['NEW', 'CONTACT_ATTEMPTED', 'CONTACTED', 'WELCOMED', 'JOINED', 'CLOSED'].map((status) => ({
+    status,
+    count: members.filter((member) => member.visitorFollowUpStatus === status).length
+  }));
+
+  const attendanceTrend = [...recentSessions]
+    .reverse()
+    .map((session) => ({
+      id: session.id,
+      title: session.title,
+      serviceDate: session.serviceDate,
+      label: new Date(session.serviceDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }),
+      attendedCount: session.records.length,
+      visitorCount: session.records.filter((record) => record.status === 'VISITOR').length
+    }));
+
+  const leaderCoverage = leaderWorkloads
+    .map((leader) => ({
+      id: leader.id,
+      fullName: leader.fullName,
+      role: leader.role,
+      memberCount: leader._count.shepherdMembers
+    }))
+    .sort((a, b) => b.memberCount - a.memberCount || a.fullName.localeCompare(b.fullName));
 
   res.json({
     totalMembers,
@@ -127,10 +235,22 @@ export async function dashboardReport(req, res) {
     latestAttendanceDate: latestSession?.serviceDate || null,
     latestAttendanceTitle: latestSession?.title || null,
     latestAttendanceCount,
-    guestFollowUpPendingCount,
+    previousAttendanceTitle: previousSession?.title || null,
+    previousAttendanceCount,
+    attendanceDelta: latestAttendanceCount - previousAttendanceCount,
+    guestFollowUpPendingCount: guestFollowUpPending.length,
+    firstTimeVisitorsThisWeek,
+    firstTimeVisitorsThisMonth,
+    newMembersThisMonth,
+    membersMissingContactCount,
+    membersMissingHouseholdCount,
+    unassignedMembersCount,
     twoWeekAttendanceThreshold: twoWeeksAgo.toISOString(),
     membersMissingTwoWeeksCount: membersMissingTwoWeeks.length,
     membersMissingTwoWeeks: membersMissingTwoWeeks.slice(0, 12),
+    visitorFollowUpFunnel,
+    attendanceTrend,
+    leaderCoverage: leaderCoverage.slice(0, 8),
     givingThisMonth: canViewGiving ? currentMonthGiving._sum.amount || 0 : null,
     givingThisMonthFormatted: canViewGiving ? formatCurrencyGBP(currentMonthGiving._sum.amount || 0) : null,
     canViewGiving
